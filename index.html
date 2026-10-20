@@ -188,11 +188,11 @@ h2{font-size:clamp(19px,3.1vw,24px);letter-spacing:-.016em}
 <header class="mast">
   <p class="kicker">Seazone · BackOffice Franquias · Central da UTI × API uti_leitura</p>
   <h1>Check-list v2.0 para o desenvolvedor</h1>
-  <p class="deck">Análise refeita em <b>20/10/2026</b> depois de ler o <b>Processo UTI de Franquias v1.0</b> (Isabella) e a API de leitura da própria Central (<code>uti_leitura</code>). <b>A ferramenta já implementa muito mais do que o doc deixa transparecer</b> — a v1 do check-list tinha 7 gaps, metade já estava feita. Aqui vão só os 7 que sobraram, honestos, cada um com evidência da bate-pronta.</p>
+  <p class="deck">Análise refeita em <b>20/10/2026</b> depois de ler o <b>Processo UTI de Franquias v1.0</b> (Isabella) e a API de leitura da própria Central (<code>uti_leitura</code>). <b>A ferramenta já implementa muito mais do que o doc deixa transparecer</b> — a v1 do check-list tinha 7 gaps, metade já estava feita. Aqui vão os 8 que sobraram (v2.0 trouxe 7 validados contra a API; v2.1 somou o gap 00 pedido pela Ray após leitura manual: notificação ativa dos especialistas quando o Alerta sobe).</p>
   <div class="badges">
-    <span class="badge b">v2.0 · 20/10/2026</span>
+    <span class="badge b">v2.1 · 20/10/2026</span>
     <span class="badge g">8 confirmados prontos</span>
-    <span class="badge r">3 P1</span>
+    <span class="badge r">4 P1</span>
     <span class="badge a">2 P2</span>
     <span class="badge b">2 P3</span>
     <span class="badge b">+ 17 backlog</span>
@@ -222,12 +222,12 @@ h2{font-size:clamp(19px,3.1vw,24px);letter-spacing:-.016em}
   </div>
   <div class="es align">
     <span class="esh">Alinhamento</span>
-    <span class="esn">5</span>
-    <span class="est">processo e ferramenta não conversam <b>(3 prioritários · 2 backlog)</b></span>
+    <span class="esn">6</span>
+    <span class="est">processo e ferramenta não conversam <b>(4 prioritários · 2 backlog)</b></span>
     <ul>
+      <li>Alerta não sai da ferramenta (sem Slack ativo, sem task, sem rotina)</li>
       <li>Hub Consultoria: integração "sugerida" não vira "agendada"</li>
       <li>Call D3 registra como contato (texto livre), não passo nativo</li>
-      <li>Rayanne/David fora da cópia dos e-mails</li>
     </ul>
   </div>
 </div>
@@ -262,7 +262,7 @@ h2{font-size:clamp(19px,3.1vw,24px);letter-spacing:-.016em}
 <div class="prog" id="prog">
   <div class="ph">
     <span class="pl">Progresso</span>
-    <span class="pv"><span id="done">0</span> / <span id="total">7</span></span>
+    <span class="pv"><span id="done">0</span> / <span id="total">8</span></span>
   </div>
   <div class="track"><div class="fill" id="fill" style="width:0%"></div></div>
   <div class="actions">
@@ -288,6 +288,34 @@ h2{font-size:clamp(19px,3.1vw,24px);letter-spacing:-.016em}
   <p class="sub">Sete gaps que a bate-pronta confirmou pendentes. Marque cada item conforme resolver — o progresso salva no navegador.</p>
 
   <div class="gaps">
+
+    <div class="gp" data-id="8">
+      <div class="gh">
+        <span class="gnn">00</span>
+        <span class="gtxt">Alerta não sai da ferramenta: sem Slack ativo, sem task, sem rotina de monitoramento</span>
+        <span class="prio p1">P1 · trava ciclo</span>
+        <span class="origin align">Alinhamento</span>
+      </div>
+      <div class="body">
+        <div class="row"><span class="rk">Referência no processo</span><span class="rv">Seção 5 · etapa 1 Alerta · "Isabella: nada a fazer. Só conferir no topo da Central que o robô rodou" — ajuste pedido pela Rayanne (BackOffice) em 20/10</span></div>
+        <div class="row"><span class="rk">Como é hoje (bate-pronta)</span><span class="rv dim">Quando o Derek move o card pra Alerta/Pré-UTI, só dispara e-mail pro franqueado (cópia Vivianny + Isabella). <b>Especialistas da área (Vinicius · Victória · Larissa · Camila) não recebem nada</b>. Processo prevê que eles atuem já na Pré-UTI, mas descobrem só se abrirem a Central</span></div>
+        <div class="row"><span class="rk">Risco</span><span class="rv dim">7 dias da Pré-UTI começam a correr sem o especialista do plano de maior peso saber. Entregas D1 do plano (lista de manutenções, padrão exigido, lista de problemas, validação de anúncios) atrasam porque ninguém foi avisado</span></div>
+        <div class="row"><span class="rk">Mudança sugerida (processo + ferramenta)</span><span class="rv">1) Processo: adicionar passo "notificar time" na etapa 1 Alerta. 2) Ferramenta: ao mover pra Alerta, dispara mensagem estruturada no <code>#uti-franquias</code> marcando <b>Vivianny (sempre) + especialista do plano de maior peso</b> (Vinicius→Manutenção · Victória→Ocorrências/Avaliações · Larissa→Anúncios · Camila→Estrutura/Prédio/Visita) + cria task no board do especialista com prazo = data-limite da Pré-UTI + cron diário posta status resumido no thread até sair da Pré-UTI</span></div>
+      </div>
+      <div class="todo">
+        <span class="tl">Critério de aceite</span>
+        <div class="item"><input type="checkbox" id="i8a"><label for="i8a">Transição Fila → Alerta dispara mensagem no <code>#uti-franquias</code> marcando Vivianny + especialista do plano principal (lookup por tipo de plano no diagnóstico)</label></div>
+        <div class="item"><input type="checkbox" id="i8b"><label for="i8b">Mensagem traz: franquia, sinal que disparou (Score Ruim / queda 10+ / etc.), planos sugeridos, link direto pro card na Central</label></div>
+        <div class="item"><input type="checkbox" id="i8c"><label for="i8c">Task criada automaticamente no board do especialista (Taskdex do time BackOffice) com dono = especialista, prazo = D7 da Pré-UTI, link pro card</label></div>
+        <div class="item"><input type="checkbox" id="i8d"><label for="i8d">Cron diário posta status resumido em thread do alerta: "D+N · X entregas feitas / Y pendentes · próximo passo" até card sair da Pré-UTI (encerrado ou entrou na UTI)</label></div>
+        <div class="item"><input type="checkbox" id="i8e"><label for="i8e">Rayanne + David em cópia (consistente com gap 03) · verificar necessidade de canal dedicado <code>#uti-franquias-alertas</code> ou thread no canal principal</label></div>
+        <div class="item"><input type="checkbox" id="i8f"><label for="i8f">Caso em whitelist "só alerta" (gap 05) NÃO dispara notificação externa — fica só no quadro</label></div>
+      </div>
+      <div class="btns">
+        <button class="btn-claude" onclick="sendGapToClaude(this)">Enviar ao Claude</button>
+        <button class="btn-done" onclick="toggleDone(8)"></button>
+      </div>
+    </div>
 
     <div class="gp" data-id="1">
       <div class="gh">
@@ -624,12 +652,12 @@ h2{font-size:clamp(19px,3.1vw,24px);letter-spacing:-.016em}
   </div>
 </section>
 
-<p class="foot">v2.0 · 20/10/2026 · <b>Ray</b> (BackOffice Franquias) · análise refeita após bate-pronta contra API <code>uti_leitura</code>. Correção honesta da v1 (que estimou gaps que já estavam prontos). Entregue pro David Soares (coord. Admin/Financeiro Franquias).</p>
+<p class="foot">v2.1 · 20/10/2026 · <b>Ray</b> (BackOffice Franquias) · análise refeita após bate-pronta contra API <code>uti_leitura</code>. v2.1 soma o gap 00 (notificação ativa dos especialistas) pedido pela Ray em revisão manual. Entregue pro David Soares (coord. Admin/Financeiro Franquias).</p>
 
 </div>
 
 <script>
-const KEY='uti_check_v2';
+const KEY='uti_check_v21';
 const state=JSON.parse(localStorage.getItem(KEY)||'{}');
 
 function save(){localStorage.setItem(KEY,JSON.stringify(state));updateProg();}
