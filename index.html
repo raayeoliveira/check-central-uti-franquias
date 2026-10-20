@@ -188,11 +188,11 @@ h2{font-size:clamp(19px,3.1vw,24px);letter-spacing:-.016em}
 <header class="mast">
   <p class="kicker">Seazone · BackOffice Franquias · Central da UTI × API uti_leitura</p>
   <h1>Check-list v2.0 para o desenvolvedor</h1>
-  <p class="deck">Análise refeita em <b>20/10/2026</b> depois de ler o <b>Processo UTI de Franquias v1.0</b> (Isabella) e a API de leitura da própria Central (<code>uti_leitura</code>). <b>A ferramenta já implementa muito mais do que o doc deixa transparecer</b> — a v1 do check-list tinha 7 gaps, metade já estava feita. Aqui vão os 8 que sobraram (v2.0 trouxe 7 validados contra a API; v2.1 somou o gap 00 pedido pela Ray após leitura manual: notificação ativa dos especialistas quando o Alerta sobe).</p>
+  <p class="deck">Análise refeita em <b>20/10/2026</b> depois de ler o <b>Processo UTI de Franquias v1.0</b> (Isabella) e a API de leitura da própria Central (<code>uti_leitura</code>). <b>A ferramenta já implementa muito mais do que o doc deixa transparecer</b> — a v1 do check-list tinha 7 gaps, metade já estava feita. Aqui vão os 9 que sobraram (v2.0 trouxe 7 validados contra a API; v2.1-v2.2 somaram os gaps 00 e 0A da Ray após leitura manual: notificação ativa dos especialistas + decisão por Slack + modelos de plano Pré-UTI por área).</p>
   <div class="badges">
-    <span class="badge b">v2.1 · 20/10/2026</span>
+    <span class="badge b">v2.2 · 20/10/2026</span>
     <span class="badge g">8 confirmados prontos</span>
-    <span class="badge r">4 P1</span>
+    <span class="badge r">5 P1</span>
     <span class="badge a">2 P2</span>
     <span class="badge b">2 P3</span>
     <span class="badge b">+ 17 backlog</span>
@@ -212,12 +212,12 @@ h2{font-size:clamp(19px,3.1vw,24px);letter-spacing:-.016em}
   </div>
   <div class="es proc">
     <span class="esh">Processo</span>
-    <span class="esn">10</span>
-    <span class="est">decisões em aberto no v1.0 <b>(0 prioritários · 10 backlog)</b></span>
+    <span class="esn">11</span>
+    <span class="est">decisões em aberto no v1.0 <b>(1 prioritário · 10 backlog)</b></span>
     <ul>
+      <li>Modelos de plano Pré-UTI (6 áreas, monitor, cadência) não formalizados</li>
       <li>Divisão Vivianny × gestor regional nos check-ins (ponto 2)</li>
       <li>Divergência doc × ferramenta (horário rodada, régua carteira)</li>
-      <li>Critério fechado de "caso grave"</li>
     </ul>
   </div>
   <div class="es align">
@@ -262,7 +262,7 @@ h2{font-size:clamp(19px,3.1vw,24px);letter-spacing:-.016em}
 <div class="prog" id="prog">
   <div class="ph">
     <span class="pl">Progresso</span>
-    <span class="pv"><span id="done">0</span> / <span id="total">8</span></span>
+    <span class="pv"><span id="done">0</span> / <span id="total">9</span></span>
   </div>
   <div class="track"><div class="fill" id="fill" style="width:0%"></div></div>
   <div class="actions">
@@ -292,28 +292,63 @@ h2{font-size:clamp(19px,3.1vw,24px);letter-spacing:-.016em}
     <div class="gp" data-id="8">
       <div class="gh">
         <span class="gnn">00</span>
-        <span class="gtxt">Alerta não sai da ferramenta: sem Slack ativo, sem task, sem rotina de monitoramento</span>
+        <span class="gtxt">Alerta não sai da ferramenta: sem Slack ativo, sem task, sem rotina, sem decisão no canal</span>
         <span class="prio p1">P1 · trava ciclo</span>
         <span class="origin align">Alinhamento</span>
       </div>
       <div class="body">
-        <div class="row"><span class="rk">Referência no processo</span><span class="rv">Seção 5 · etapa 1 Alerta · "Isabella: nada a fazer. Só conferir no topo da Central que o robô rodou" — ajuste pedido pela Rayanne (BackOffice) em 20/10</span></div>
-        <div class="row"><span class="rk">Como é hoje (bate-pronta)</span><span class="rv dim">Quando o Derek move o card pra Alerta/Pré-UTI, só dispara e-mail pro franqueado (cópia Vivianny + Isabella). <b>Especialistas da área (Vinicius · Victória · Larissa · Camila) não recebem nada</b>. Processo prevê que eles atuem já na Pré-UTI, mas descobrem só se abrirem a Central</span></div>
-        <div class="row"><span class="rk">Risco</span><span class="rv dim">7 dias da Pré-UTI começam a correr sem o especialista do plano de maior peso saber. Entregas D1 do plano (lista de manutenções, padrão exigido, lista de problemas, validação de anúncios) atrasam porque ninguém foi avisado</span></div>
-        <div class="row"><span class="rk">Mudança sugerida (processo + ferramenta)</span><span class="rv">1) Processo: adicionar passo "notificar time" na etapa 1 Alerta. 2) Ferramenta: ao mover pra Alerta, dispara mensagem estruturada no <code>#uti-franquias</code> marcando <b>Vivianny (sempre) + especialista do plano de maior peso</b> (Vinicius→Manutenção · Victória→Ocorrências/Avaliações · Larissa→Anúncios · Camila→Estrutura/Prédio/Visita) + cria task no board do especialista com prazo = data-limite da Pré-UTI + cron diário posta status resumido no thread até sair da Pré-UTI</span></div>
+        <div class="row"><span class="rk">Referência no processo</span><span class="rv">Seção 5 · etapa 1 Alerta ("Isabella: nada a fazer") + etapa 3 Aguardando aprovação ("a liderança decide em 2 dias") — ajuste pedido pela Rayanne em 20/10 (incluindo botão de validação no mesmo alerta)</span></div>
+        <div class="row"><span class="rk">Como é hoje (bate-pronta)</span><span class="rv dim">Quando o Derek move o card pra Alerta/Pré-UTI, só dispara e-mail pro franqueado (cópia Vivianny + Isabella). <b>Especialistas da área (Vinicius · Victória · Larissa · Camila) não recebem nada</b>. Quando o card chega em Aguardando aprovação, a decisão só pode ser tomada abrindo a Central — <b>sem ação direto do Slack</b></span></div>
+        <div class="row"><span class="rk">Risco</span><span class="rv dim">7 dias da Pré-UTI começam a correr sem o especialista saber. Entregas D1 do plano atrasam. Aprovadoras (Carol, Vivianny, Iara, Rayanne) perdem os 2 du da decisão porque esquecem de abrir a Central — Isabella precisa cobrar no Slack</span></div>
+        <div class="row"><span class="rk">Mudança sugerida (processo + ferramenta)</span><span class="rv">1) Processo: adicionar passo "notificar time" na etapa 1 Alerta e passo "decisão por Slack" na etapa 3. 2) Ferramenta: ao mover pra Alerta, dispara mensagem no <code>#uti-franquias</code> marcando <b>Vivianny + especialista do plano principal</b> + cria task + cron diário no thread. Ao mover pra Aguardando aprovação, dispara mensagem com <b>4 botões de ação pras aprovadoras</b> decidirem direto do Slack</span></div>
       </div>
       <div class="todo">
-        <span class="tl">Critério de aceite</span>
+        <span class="tl">Critério de aceite · Alerta/Pré-UTI</span>
         <div class="item"><input type="checkbox" id="i8a"><label for="i8a">Transição Fila → Alerta dispara mensagem no <code>#uti-franquias</code> marcando Vivianny + especialista do plano principal (lookup por tipo de plano no diagnóstico)</label></div>
         <div class="item"><input type="checkbox" id="i8b"><label for="i8b">Mensagem traz: franquia, sinal que disparou (Score Ruim / queda 10+ / etc.), planos sugeridos, link direto pro card na Central</label></div>
         <div class="item"><input type="checkbox" id="i8c"><label for="i8c">Task criada automaticamente no board do especialista (Taskdex do time BackOffice) com dono = especialista, prazo = D7 da Pré-UTI, link pro card</label></div>
         <div class="item"><input type="checkbox" id="i8d"><label for="i8d">Cron diário posta status resumido em thread do alerta: "D+N · X entregas feitas / Y pendentes · próximo passo" até card sair da Pré-UTI (encerrado ou entrou na UTI)</label></div>
         <div class="item"><input type="checkbox" id="i8e"><label for="i8e">Rayanne + David em cópia (consistente com gap 03) · verificar necessidade de canal dedicado <code>#uti-franquias-alertas</code> ou thread no canal principal</label></div>
         <div class="item"><input type="checkbox" id="i8f"><label for="i8f">Caso em whitelist "só alerta" (gap 05) NÃO dispara notificação externa — fica só no quadro</label></div>
+        <div class="tl" style="margin-top:10px">Critério de aceite · Aguardando aprovação (decisão por Slack)</div>
+        <div class="item"><input type="checkbox" id="i8g"><label for="i8g">Transição Pré-UTI → Aguardando aprovação dispara mensagem marcando as 4 aprovadoras (Carol · Vivianny · Iara · Rayanne) com <b>4 botões</b>: ✅ Entra na UTI · ⏸ Mais 7 dias Pré-UTI · 👀 Só acompanhar 30 dias · 🚫 Distrato</label></div>
+        <div class="item"><input type="checkbox" id="i8h"><label for="i8h">Clique em "Entra na UTI" abre modal pra confirmar quais planos marcar (default = planos sugeridos pelo diagnóstico); ação dispara automaticamente o Stop de Crescimento e move pra Comunicado</label></div>
+        <div class="item"><input type="checkbox" id="i8i"><label for="i8i">Clique em "Mais 7 dias Pré-UTI" ou "Só acompanhar" aprova sem pedir texto (consistente com regra "aprovar não pede texto")</label></div>
+        <div class="item"><input type="checkbox" id="i8j"><label for="i8j">Clique em "Distrato" abre modal exigindo motivo (consistente com regra "negar, distrato e mudar de etapa fora do fluxo pedem o motivo")</label></div>
+        <div class="item"><input type="checkbox" id="i8k"><label for="i8k">Decisão fica registrada no card da Central com <code>decidido_por</code> = quem clicou e <code>decidido_em</code> = timestamp do clique</label></div>
+        <div class="item"><input type="checkbox" id="i8l"><label for="i8l">Se os 2 du vencerem sem clique, cron reposta a mensagem com @ nas 4 aprovadoras (regra Isabella: "cobrar as aprovadoras no #uti-franquias quando os 2 dias vencem")</label></div>
       </div>
       <div class="btns">
         <button class="btn-claude" onclick="sendGapToClaude(this)">Enviar ao Claude</button>
         <button class="btn-done" onclick="toggleDone(8)"></button>
+      </div>
+    </div>
+
+    <div class="gp" data-id="9">
+      <div class="gh">
+        <span class="gnn">0A</span>
+        <span class="gtxt">Modelos de plano Pré-UTI (modelo, monitor, cadência) não estão formalizados</span>
+        <span class="prio p1">P1 · trava ciclo</span>
+        <span class="origin proc">Processo</span>
+      </div>
+      <div class="body">
+        <div class="row"><span class="rk">Referência no processo</span><span class="rv">Seção 5 etapa 2 Pré-UTI · "a franquia resolve com os times dela. O dono do plano responde dúvidas da franquia pelo canal normal da área (Vini pelo Sapron, Victória pela Qualidade)" — ajuste pedido pela Ray em 20/10</span></div>
+        <div class="row"><span class="rk">Como é hoje (leitura manual)</span><span class="rv dim">Processo lista os 6 planos (Manutenção, Ocorrências, Avaliações, Anúncios, Estrutura, Prédio) com entregas da franquia, mas <b>não documenta como o dono trabalha na Pré-UTI</b>: quais passos operacionais, qual template de mensagem pra franquia, qual cadência de atualização, quem monitora dia a dia</span></div>
+        <div class="row"><span class="rk">Risco</span><span class="rv dim">"7 dias pra resolver" fica no vago. Vini reage pelo Sapron, Victória pela Qualidade, cada um no reflexo, sem padrão. Franquia pode receber abordagens diferentes a cada caso. Impossível medir qualidade da intervenção</span></div>
+        <div class="row"><span class="rk">Pedido ao David</span><span class="rv">Criar com cada dono o <b>Modelo de Plano Pré-UTI</b> por área (6 modelos). Cada um responde: (1) passos operacionais do dono · (2) quem monitora dia a dia · (3) cadência de comunicação com a franquia (frequência, canal, template) · (4) materiais de apoio (checklists, listas) · (5) critério verificável de encerramento automático</span></div>
+      </div>
+      <div class="todo">
+        <span class="tl">Critério de aceite</span>
+        <div class="item"><input type="checkbox" id="i9a"><label for="i9a">Documento "Modelo de Plano Pré-UTI" por área — 6 modelos (Manutenção · Ocorrências · Avaliações · Anúncios · Estrutura · Prédio)</label></div>
+        <div class="item"><input type="checkbox" id="i9b"><label for="i9b">Cada modelo tem: dono, monitor diário, cadência de atualização pra franquia (frequência + canal + template de mensagem), materiais de apoio, critério verificável de encerramento ("fecha sozinho quando...")</label></div>
+        <div class="item"><input type="checkbox" id="i9c"><label for="i9c">David alinha com cada dono (Vinicius · Victória · Larissa · Vivianny · Camila) antes de publicar</label></div>
+        <div class="item"><input type="checkbox" id="i9d"><label for="i9d">Modelo entra na KB (ou na aba "Regras e fontes" da Central) e é linkado no e-mail de entrada da Pré-UTI</label></div>
+        <div class="item"><input type="checkbox" id="i9e"><label for="i9e">Isabella usa o mesmo doc pra "repassar a resposta ao dono do plano" (como diz a Seção 5)</label></div>
+        <div class="item"><input type="checkbox" id="i9f"><label for="i9f">Treinamento das áreas (ponto 1 da seção 9 do processo) usa esse modelo como material oficial</label></div>
+      </div>
+      <div class="btns">
+        <button class="btn-claude" onclick="sendGapToClaude(this)">Enviar ao Claude</button>
+        <button class="btn-done" onclick="toggleDone(9)"></button>
       </div>
     </div>
 
@@ -652,12 +687,12 @@ h2{font-size:clamp(19px,3.1vw,24px);letter-spacing:-.016em}
   </div>
 </section>
 
-<p class="foot">v2.1 · 20/10/2026 · <b>Ray</b> (BackOffice Franquias) · análise refeita após bate-pronta contra API <code>uti_leitura</code>. v2.1 soma o gap 00 (notificação ativa dos especialistas) pedido pela Ray em revisão manual. Entregue pro David Soares (coord. Admin/Financeiro Franquias).</p>
+<p class="foot">v2.2 · 20/10/2026 · <b>Ray</b> (BackOffice Franquias) · análise refeita após bate-pronta contra API <code>uti_leitura</code> + ajustes manuais da Ray (gap 00 notificação ativa + decisão por Slack · gap 0A modelos Pré-UTI por área). Entregue pro David Soares (coord. Admin/Financeiro Franquias).</p>
 
 </div>
 
 <script>
-const KEY='uti_check_v21';
+const KEY='uti_check_v22';
 const state=JSON.parse(localStorage.getItem(KEY)||'{}');
 
 function save(){localStorage.setItem(KEY,JSON.stringify(state));updateProg();}
