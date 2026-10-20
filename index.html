@@ -188,11 +188,11 @@ h2{font-size:clamp(19px,3.1vw,24px);letter-spacing:-.016em}
 <header class="mast">
   <p class="kicker">Seazone · BackOffice Franquias · Central da UTI × API uti_leitura</p>
   <h1>Check-list v2.0 para o desenvolvedor</h1>
-  <p class="deck">Análise refeita em <b>20/10/2026</b> depois de ler o <b>Processo UTI de Franquias v1.0</b> (Isabella) e a API de leitura da própria Central (<code>uti_leitura</code>). <b>A ferramenta já implementa muito mais do que o doc deixa transparecer</b> — a v1 do check-list tinha 7 gaps, metade já estava feita. Aqui vão os 9 que sobraram (v2.0 trouxe 7 validados contra a API; v2.1-v2.2 somaram os gaps 00 e 0A da Ray após leitura manual: notificação ativa dos especialistas + decisão por Slack + modelos de plano Pré-UTI por área).</p>
+  <p class="deck">Análise refeita em <b>20/10/2026</b> depois de ler o <b>Processo UTI de Franquias v1.0</b> (Isabella) e a API de leitura da própria Central (<code>uti_leitura</code>). <b>A ferramenta já implementa muito mais do que o doc deixa transparecer</b> — a v1 do check-list tinha 7 gaps, metade já estava feita. Aqui vão os 10 que sobraram (v2.0 trouxe 7 validados contra a API; v2.1-v2.3 somaram os gaps 00/0A/0B da Ray após leitura manual: notificação ativa + decisão por Slack + modelos de plano Pré-UTI + modelo de execução UTI com evidência pro distrato).</p>
   <div class="badges">
-    <span class="badge b">v2.2 · 20/10/2026</span>
+    <span class="badge b">v2.3 · 20/10/2026</span>
     <span class="badge g">8 confirmados prontos</span>
-    <span class="badge r">5 P1</span>
+    <span class="badge r">6 P1</span>
     <span class="badge a">2 P2</span>
     <span class="badge b">2 P3</span>
     <span class="badge b">+ 17 backlog</span>
@@ -212,11 +212,11 @@ h2{font-size:clamp(19px,3.1vw,24px);letter-spacing:-.016em}
   </div>
   <div class="es proc">
     <span class="esh">Processo</span>
-    <span class="esn">11</span>
-    <span class="est">decisões em aberto no v1.0 <b>(1 prioritário · 10 backlog)</b></span>
+    <span class="esn">12</span>
+    <span class="est">decisões em aberto no v1.0 <b>(2 prioritários · 10 backlog)</b></span>
     <ul>
       <li>Modelos de plano Pré-UTI (6 áreas, monitor, cadência) não formalizados</li>
-      <li>Divisão Vivianny × gestor regional nos check-ins (ponto 2)</li>
+      <li>Modelo de execução Plano UTI (30d) + escalonamento + evidência pro distrato</li>
       <li>Divergência doc × ferramenta (horário rodada, régua carteira)</li>
     </ul>
   </div>
@@ -262,7 +262,7 @@ h2{font-size:clamp(19px,3.1vw,24px);letter-spacing:-.016em}
 <div class="prog" id="prog">
   <div class="ph">
     <span class="pl">Progresso</span>
-    <span class="pv"><span id="done">0</span> / <span id="total">9</span></span>
+    <span class="pv"><span id="done">0</span> / <span id="total">10</span></span>
   </div>
   <div class="track"><div class="fill" id="fill" style="width:0%"></div></div>
   <div class="actions">
@@ -349,6 +349,35 @@ h2{font-size:clamp(19px,3.1vw,24px);letter-spacing:-.016em}
       <div class="btns">
         <button class="btn-claude" onclick="sendGapToClaude(this)">Enviar ao Claude</button>
         <button class="btn-done" onclick="toggleDone(9)"></button>
+      </div>
+    </div>
+
+    <div class="gp" data-id="10">
+      <div class="gh">
+        <span class="gnn">0B</span>
+        <span class="gtxt">Modelo de execução do Plano UTI (30d) + monitoramento + escalonamento + evidência pro distrato</span>
+        <span class="prio p1">P1 · trava ciclo</span>
+        <span class="origin proc">Processo</span>
+      </div>
+      <div class="body">
+        <div class="row"><span class="rk">Referência no processo</span><span class="rv">Seção 5 etapa 5 "Plano de recuperação: 30 dias de execução" · tabela "Passos da Seazone | Entregas do franqueado | Meta no D30 | Se atrasar" — ajuste pedido pela Ray em 20/10</span></div>
+        <div class="row"><span class="rk">Como é hoje (leitura manual)</span><span class="rv dim">A tabela da seção 5 lista <b>o quê</b> cada plano exige (passos, entregas, meta) mas não documenta <b>como</b> o dono monitora dia a dia, como registra o escalonamento quando a franquia não executa, e como essa trilha vira evidência caso o caso termine em distrato</span></div>
+        <div class="row"><span class="rk">Risco</span><span class="rv dim">30 dias de UTI sem padrão de monitoramento viram reflexo. Franquia que não executa pode ser "cobrada" verbalmente sem rastro no card. Se termina em distrato, Seazone não tem evidência estruturada pra justificar a decisão juridicamente ou contratualmente — vira palavra contra palavra</span></div>
+        <div class="row"><span class="rk">Pedido ao David</span><span class="rv">Criar com cada dono o <b>Modelo de Execução do Plano UTI</b> por área (extensão natural do G0A). Cada um precisa definir: (1) padrão operacional de monitoramento diário · (2) rito formal de escalonamento (gatilho, caminho, SLA) · (3) trilha de evidência exportável · (4) template dos check-ins D7/D14/D21/D30</span></div>
+      </div>
+      <div class="todo">
+        <span class="tl">Critério de aceite</span>
+        <div class="item"><input type="checkbox" id="iAa"><label for="iAa">Documento "Modelo de Execução Plano UTI" por área (6 modelos, ou extensão do G0A) com padrão diário do dono</label></div>
+        <div class="item"><input type="checkbox" id="iAb"><label for="iAb">Rito formal de escalonamento com gatilho automático: passo D7/D14/D21 vermelho → notifica Vivianny no mesmo dia; 2 conferências vermelhas → notifica Diretoria (consistente com coluna "Se atrasar" da tabela)</label></div>
+        <div class="item"><input type="checkbox" id="iAc"><label for="iAc">Template de registro no card: toda cobrança, toda resposta da franquia, toda escalada tem campo estruturado — não vira texto solto no WhatsApp</label></div>
+        <div class="item"><input type="checkbox" id="iAd"><label for="iAd">Template dos check-ins D7 / D14 / D21 / D30: o que o dono apresenta, que decisão sai (seguir, cobrar, escalar)</label></div>
+        <div class="item"><input type="checkbox" id="iAe"><label for="iAe">Trilha de registros exportável como <b>dossiê UTI</b> (PDF ou link controlado) — serve como evidência contratual/jurídica em caso de distrato</label></div>
+        <div class="item"><input type="checkbox" id="iAf"><label for="iAf">Transição pra etapa 8 Distrato gera automaticamente o dossiê UTI com toda a trilha de evidência (passos atrasados, cobranças registradas, respostas da franquia, decisões de escalada)</label></div>
+        <div class="item"><input type="checkbox" id="iAg"><label for="iAg">David alinha com cada dono (Vinicius · Victória · Larissa · Vivianny · Camila) antes de publicar</label></div>
+      </div>
+      <div class="btns">
+        <button class="btn-claude" onclick="sendGapToClaude(this)">Enviar ao Claude</button>
+        <button class="btn-done" onclick="toggleDone(10)"></button>
       </div>
     </div>
 
@@ -687,12 +716,12 @@ h2{font-size:clamp(19px,3.1vw,24px);letter-spacing:-.016em}
   </div>
 </section>
 
-<p class="foot">v2.2 · 20/10/2026 · <b>Ray</b> (BackOffice Franquias) · análise refeita após bate-pronta contra API <code>uti_leitura</code> + ajustes manuais da Ray (gap 00 notificação ativa + decisão por Slack · gap 0A modelos Pré-UTI por área). Entregue pro David Soares (coord. Admin/Financeiro Franquias).</p>
+<p class="foot">v2.3 · 20/10/2026 · <b>Ray</b> (BackOffice Franquias) · análise refeita após bate-pronta contra API <code>uti_leitura</code> + ajustes manuais da Ray (gap 00 notificação ativa + decisão por Slack · gap 0A modelos Pré-UTI · gap 0B modelo execução Plano UTI com escalonamento e evidência pro distrato). Entregue pro David Soares (coord. Admin/Financeiro Franquias).</p>
 
 </div>
 
 <script>
-const KEY='uti_check_v22';
+const KEY='uti_check_v23';
 const state=JSON.parse(localStorage.getItem(KEY)||'{}');
 
 function save(){localStorage.setItem(KEY,JSON.stringify(state));updateProg();}
