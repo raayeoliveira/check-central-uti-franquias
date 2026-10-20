@@ -167,6 +167,16 @@ h2{font-size:clamp(19px,3.1vw,24px);letter-spacing:-.016em}
 .bkgroup > .bkhd .bkdot.tool,.bkgroup > .bkhd .bkdot.sys{background:var(--brand)}
 .bkgroup > .bkhd .bkdot.proc,.bkgroup > .bkhd .bkdot.pro{background:#7B2CBF}
 .bkgroup > .bkhd .bkdot.align{background:var(--amber)}
+.bk.autom{border-left-color:var(--green)}
+.bk.agente{border-left-color:var(--brand)}
+.bk.extens{border-left-color:var(--coral)}
+.bk.autom .btn-claude{border-color:var(--green-line);background:var(--green-soft);color:var(--green-ink)}
+.bk.autom .btn-claude:hover{background:var(--green);color:#fff;border-color:var(--green)}
+.bk.extens .btn-claude{border-color:var(--coral-line);background:var(--coral-soft);color:var(--coral-ink)}
+.bk.extens .btn-claude:hover{background:var(--coral);color:#fff;border-color:var(--coral)}
+.bkgroup > .bkhd .bkdot.autom{background:var(--green)}
+.bkgroup > .bkhd .bkdot.agente{background:var(--brand)}
+.bkgroup > .bkhd .bkdot.extens{background:var(--coral)}
 .bkgroup > .bksub{font-size:13.5px;color:var(--ink-3);line-height:1.55;margin-bottom:4px}
 
 .doneblk{margin-top:18px;background:var(--surface);border:1px solid var(--green-line);border-left:4px solid var(--green);border-radius:11px;padding:16px 20px}
@@ -188,14 +198,15 @@ h2{font-size:clamp(19px,3.1vw,24px);letter-spacing:-.016em}
 <header class="mast">
   <p class="kicker">Seazone · BackOffice Franquias · Central da UTI × API uti_leitura</p>
   <h1>Check-list v2.0 para o desenvolvedor</h1>
-  <p class="deck">Análise refeita em <b>20/10/2026</b> depois de ler o <b>Processo UTI de Franquias v1.0</b> (Isabella) e a API de leitura da própria Central (<code>uti_leitura</code>). <b>A ferramenta já implementa muito mais do que o doc deixa transparecer</b> — a v1 do check-list tinha 7 gaps, metade já estava feita. Aqui vão os 10 que sobraram (v2.0 trouxe 7 validados contra a API; v2.1-v2.3 somaram os gaps 00/0A/0B da Ray após leitura manual: notificação ativa + decisão por Slack + modelos de plano Pré-UTI + modelo de execução UTI com evidência pro distrato).</p>
+  <p class="deck">Análise refeita em <b>20/10/2026</b> depois de ler o <b>Processo UTI de Franquias v1.0</b> (Isabella) e a API de leitura da própria Central (<code>uti_leitura</code>). <b>A ferramenta já implementa muito mais do que o doc deixa transparecer</b> — a v1 do check-list tinha 7 gaps, metade já estava feita. Aqui vão os 10 que sobraram (v2.0 trouxe 7 validados contra a API; v2.1-v2.3 somaram os gaps 00/0A/0B da Ray após leitura manual) + <b>seção 05 nova</b> com 23 indicações de melhoria pra ganho de qualidade e escalabilidade (automação · agentes · extensão).</p>
   <div class="badges">
-    <span class="badge b">v2.3 · 20/10/2026</span>
+    <span class="badge b">v2.4 · 20/10/2026</span>
     <span class="badge g">8 confirmados prontos</span>
     <span class="badge r">6 P1</span>
     <span class="badge a">2 P2</span>
     <span class="badge b">2 P3</span>
     <span class="badge b">+ 17 backlog</span>
+    <span class="badge b">+ 23 melhorias (automação · agentes · extensão)</span>
   </div>
 </header>
 
@@ -716,12 +727,179 @@ h2{font-size:clamp(19px,3.1vw,24px);letter-spacing:-.016em}
   </div>
 </section>
 
-<p class="foot">v2.3 · 20/10/2026 · <b>Ray</b> (BackOffice Franquias) · análise refeita após bate-pronta contra API <code>uti_leitura</code> + ajustes manuais da Ray (gap 00 notificação ativa + decisão por Slack · gap 0A modelos Pré-UTI · gap 0B modelo execução Plano UTI com escalonamento e evidência pro distrato). Entregue pro David Soares (coord. Admin/Financeiro Franquias).</p>
+<section>
+  <div class="shead"><span class="sn">05</span><h2>Indicações de automação, agentes e extensão</h2></div>
+  <p class="sub">Melhorias de <b>qualidade e escalabilidade</b> levantadas rodando o processo UTI de Franquias v1.0 contra a API <code>uti_leitura</code> em 20/10. Três lentes complementares — automação (processo manual → cron/trigger), agentes (IA aplicada em análise/decisão/resumo) e extensão (overlay nos sistemas-irmãos pra levar o contexto da UTI aonde o time já trabalha). Cada item tem botão <b>✦ Enviar ao Claude</b> pra virar desenho técnico pro David.</p>
+
+  <div class="bkgroup">
+    <div class="bkhd"><span class="bkdot autom"></span>Automação · processo manual → cron / trigger</div>
+    <p class="bksub">Rotinas que hoje dependem de alguém lembrar. Automação libera a Isabella pra tratar casos atípicos.</p>
+    <div class="bklog">
+
+      <div class="bk autom">
+        <div class="bkh"><span class="bkn">AT1</span><span class="bkt">Priorização automática da fila "aguardando vaga"</span></div>
+        <p class="bkd">Franquias aprovadas sem vaga (max 5 em Comunicado+Plano+Resultado) ficam estacionadas. Automatizar fila por: reincidência (topo) → prédio GOps/Spot → reserva nos próximos 14 dias → tempo em crítico → nota mais baixa (mesma régua da UTI de Imóveis). Entra automático quando vaga abre.</p>
+        <button class="btn-claude" onclick="sendMelhoriaToClaude(this)">✦ Enviar ao Claude</button>
+      </div>
+
+      <div class="bk autom">
+        <div class="bkh"><span class="bkn">AT2</span><span class="bkt">Follow-up automático dos marcos D7/D14/D21/D30</span></div>
+        <p class="bkd">Hoje Isabella cobra. Cron por caso: 24h antes do marco posta no thread do alerta "Amanhã é D14 do caso X — Victória precisa conferir ocorrências e Vivianny faz check-in". Isabella só revisa.</p>
+        <button class="btn-claude" onclick="sendMelhoriaToClaude(this)">✦ Enviar ao Claude</button>
+      </div>
+
+      <div class="bk autom">
+        <div class="bkh"><span class="bkn">AT3</span><span class="bkt">Fechamento automático de passos via evento do sistema-fonte</span></div>
+        <p class="bkd">Suporte CS fecha chamado de anúncio → Central fecha passo "anúncio corrigido". Sapron conclui manutenção com tag UTI → Central fecha entrega D3. Hoje depende de clique humano em cada ponta.</p>
+        <button class="btn-claude" onclick="sendMelhoriaToClaude(this)">✦ Enviar ao Claude</button>
+      </div>
+
+      <div class="bk autom">
+        <div class="bkh"><span class="bkn">AT4</span><span class="bkt">Dispatch de tags UTI nos sistemas-irmãos (Sapron · Suporte · UTI Imóveis)</span></div>
+        <p class="bkd">Quando franquia entra em Comunicado, aplicar automaticamente: tag <code>uti</code> em todo card do Sapron da franquia, tag <code>uti</code> em chamados do Suporte, prioridade na UTI de Imóveis pros críticos. Consistente com A1 e A2 do backlog.</p>
+        <button class="btn-claude" onclick="sendMelhoriaToClaude(this)">✦ Enviar ao Claude</button>
+      </div>
+
+      <div class="bk autom">
+        <div class="bkh"><span class="bkn">AT5</span><span class="bkt">Geração automática do dossiê UTI na transição pro Distrato</span></div>
+        <p class="bkd">Quando caso vai pra Distrato (etapa 8), job coleta toda a trilha (eventos, planos, passos marcados, e-mails trocados, respostas da franquia, decisões de escalada) e gera PDF controlado. Serve de evidência jurídica. Consequência direta do gap 0B.</p>
+        <button class="btn-claude" onclick="sendMelhoriaToClaude(this)">✦ Enviar ao Claude</button>
+      </div>
+
+      <div class="bk autom">
+        <div class="bkh"><span class="bkn">AT6</span><span class="bkt">Alerta antecipado de recaída pós-alta</span></div>
+        <p class="bkd">Hoje 30d de Acompanhamento silenciosos; se Score cair volta pra aprovação. Cron: no D15 e D25 pós-alta, se métrica se aproxima da régua (ex.: carteira crítica subiu 50% desde alta mas ainda não bateu 20%), posta alerta antecipado pro Vivianny.</p>
+        <button class="btn-claude" onclick="sendMelhoriaToClaude(this)">✦ Enviar ao Claude</button>
+      </div>
+
+      <div class="bk autom">
+        <div class="bkh"><span class="bkn">AT7</span><span class="bkt">Transição automática fora de "Integração/Stand by"</span></div>
+        <p class="bkd">Processo diz Integração/Stand by fica fora. Se franquia muda de status (sai de Integração no cadastro), entra automaticamente no diagnóstico diário sem deploy ou intervenção. Hoje depende da franquia aparecer no próximo diagnóstico naturalmente.</p>
+        <button class="btn-claude" onclick="sendMelhoriaToClaude(this)">✦ Enviar ao Claude</button>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="bkgroup">
+    <div class="bkhd"><span class="bkdot agente"></span>Agentes · IA aplicada em análise, decisão e resumo</div>
+    <p class="bksub">Onde o volume (48 casos franquia · 435 imóveis · 388 Conta 2) + a necessidade de qualidade justificam LLM. Cada agente roda sozinho e devolve rascunho pra humano aprovar.</p>
+    <div class="bklog">
+
+      <div class="bk agente">
+        <div class="bkh"><span class="bkn">AG1</span><span class="bkt">Agente de triagem de resposta da franquia por e-mail</span></div>
+        <p class="bkd">Franqueado responde ao e-mail de Pré-UTI/UTI (destinatário Vivianny). Agente classifica em 4 buckets: <b>vai executar</b> · <b>precisa ajuda operacional</b> · <b>vai contestar meta</b> · <b>outro</b> — encaminha pro dono do plano correto com rascunho de resposta pré-formatado.</p>
+        <button class="btn-claude" onclick="sendMelhoriaToClaude(this)">✦ Enviar ao Claude</button>
+      </div>
+
+      <div class="bk agente">
+        <div class="bkh"><span class="bkn">AG2</span><span class="bkt">Agente de resumo semanal do caso (antes do check-in)</span></div>
+        <p class="bkd">Toda sexta antes do check-in, agente lê eventos da semana (passos marcados, ✎ contatos, mudanças de métrica, respostas da franquia) e gera resumo: "Caso X · semana D7-D14 · 3 entregas feitas / 2 pendentes · franquia respondeu em 24h · risco: Y". Vivianny / especialista chegam no check-in com contexto.</p>
+        <button class="btn-claude" onclick="sendMelhoriaToClaude(this)">✦ Enviar ao Claude</button>
+      </div>
+
+      <div class="bk agente">
+        <div class="bkh"><span class="bkn">AG3</span><span class="bkt">Agente de narrativa do dossiê UTI pro distrato</span></div>
+        <p class="bkd">Quando o dossiê é gerado (AT5), agente escreve a narrativa executiva (3-5 parágrafos): histórico da franquia, o que a Seazone ofereceu, o que a franquia executou/não executou, por que o distrato é justificado. Pra Carol levar à decisão sem ler 30 páginas.</p>
+        <button class="btn-claude" onclick="sendMelhoriaToClaude(this)">✦ Enviar ao Claude</button>
+      </div>
+
+      <div class="bk agente">
+        <div class="bkh"><span class="bkn">AG4</span><span class="bkt">Agente de análise de contestação de meta</span></div>
+        <p class="bkd">Franquia contesta meta (ex.: "não dá pra zerar manutenções em 30d porque fornecedor X atrasou"). Agente puxa contexto (base da rede, outros casos similares, fornecedores) e devolve rascunho: "contestação procede / parcial / não procede · justificativa + evidência".</p>
+        <button class="btn-claude" onclick="sendMelhoriaToClaude(this)">✦ Enviar ao Claude</button>
+      </div>
+
+      <div class="bk agente">
+        <div class="bkh"><span class="bkn">AG5</span><span class="bkt">Agente de check semanal de divergências doc × ferramenta</span></div>
+        <p class="bkd">Automatiza o gap 04. Toda semana, agente lê o doc oficial (Isabella) + API <code>uti_leitura/regras</code> e aponta divergências novas no <code>#uti-franquias</code>. Mantém o doc sempre atualizado sem Rayanne precisar auditar.</p>
+        <button class="btn-claude" onclick="sendMelhoriaToClaude(this)">✦ Enviar ao Claude</button>
+      </div>
+
+      <div class="bk agente">
+        <div class="bkh"><span class="bkn">AG6</span><span class="bkt">Agente de triagem avançada do sinal (contexto além da regra)</span></div>
+        <p class="bkd">Hoje Derek sugere plano por regra. Agente lê contexto adicional (últimas ocorrências descritivas, histórico de 1:1 no Pipedrive, transcrição de calls recentes, mensagens no WhatsApp Business) e sugere plano com justificativa + grau de confiança. Carol/Vivianny validam no botão do G00.</p>
+        <button class="btn-claude" onclick="sendMelhoriaToClaude(this)">✦ Enviar ao Claude</button>
+      </div>
+
+      <div class="bk agente">
+        <div class="bkh"><span class="bkn">AG7</span><span class="bkt">Agente de meta-análise mensal da qualidade das intervenções</span></div>
+        <p class="bkd">Mensal, agente roda sobre todos os casos encerrados e aponta padrões: "80% das franquias em plano Manutenção não respondem no D3", "cadência 7 dias insuficiente pra plano Prédio", "Victória registra mais ✎ contato que Vinicius". Input estruturado pra retro.</p>
+        <button class="btn-claude" onclick="sendMelhoriaToClaude(this)">✦ Enviar ao Claude</button>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="bkgroup">
+    <div class="bkhd"><span class="bkdot extens"></span>Extensão · overlay nos sistemas-irmãos</div>
+    <p class="bksub">Levar o contexto da UTI aonde o time já trabalha (Sapron, Hub Consultoria, Suporte, Gmail, Stays) via extensão de navegador — padrão que a Ray já valida na <b>Plataforma Governança Franquias</b>. Reduz "preciso abrir mais um sistema" pra zero.</p>
+    <div class="bklog">
+
+      <div class="bk extens">
+        <div class="bkh"><span class="bkn">EX1</span><span class="bkt">Extensão Sapron (Central de Manutenção)</span></div>
+        <p class="bkd">Vinicius abre card de manutenção de franquia em UTI → badge <b>"🔴 UTI · plano Manutenção · D+7 · próxima entrega: urgentes zeradas"</b>. Atalho pra abrir ficha da Central sem sair do Sapron.</p>
+        <button class="btn-claude" onclick="sendMelhoriaToClaude(this)">✦ Enviar ao Claude</button>
+      </div>
+
+      <div class="bk extens">
+        <div class="bkh"><span class="bkn">EX2</span><span class="bkt">Extensão Hub Consultoria Regional</span></div>
+        <p class="bkd">Consultor abre agenda → visitas que são passo UTI ganham badge "UTI" + prioridade visual + link pro card. Lado do consumidor do gap 01.</p>
+        <button class="btn-claude" onclick="sendMelhoriaToClaude(this)">✦ Enviar ao Claude</button>
+      </div>
+
+      <div class="bk extens">
+        <div class="bkh"><span class="bkn">EX3</span><span class="bkt">Extensão ScorePulse</span></div>
+        <p class="bkd">Franquia aberta no ScorePulse → badge "📊 UTI · Pré-UTI D+4 · Score caiu 12 pts no mês". Mostra ligação direta entre o movimento do Score e o caso na UTI.</p>
+        <button class="btn-claude" onclick="sendMelhoriaToClaude(this)">✦ Enviar ao Claude</button>
+      </div>
+
+      <div class="bk extens">
+        <div class="bkh"><span class="bkn">EX4</span><span class="bkt">Extensão Suporte CS Franquias</span></div>
+        <p class="bkd">Larissa abre chamado de anúncio → se franquia está em UTI, badge "UTI · plano Anúncios · D+4 · fechar até D7". Conclusão do chamado dispara fechamento do passo UTI (consistente com AT3).</p>
+        <button class="btn-claude" onclick="sendMelhoriaToClaude(this)">✦ Enviar ao Claude</button>
+      </div>
+
+      <div class="bk extens">
+        <div class="bkh"><span class="bkn">EX5</span><span class="bkt">Extensão Gmail (inbox Vivianny / Isabella / donos de plano)</span></div>
+        <p class="bkd">E-mail de franquia em UTI chega → badge <b>"🔴 UTI D+6 · entrega D7 vence amanhã · plano: Ocorrências"</b> na lista de inbox. Prioriza triagem sem precisar abrir o e-mail.</p>
+        <button class="btn-claude" onclick="sendMelhoriaToClaude(this)">✦ Enviar ao Claude</button>
+      </div>
+
+      <div class="bk extens">
+        <div class="bkh"><span class="bkn">EX6</span><span class="bkt">Extensão Stays (PMS)</span></div>
+        <p class="bkd">Franquia em UTI aberta no Stays → badge contextual com situação atual + próximo passo + link pro card da Central.</p>
+        <button class="btn-claude" onclick="sendMelhoriaToClaude(this)">✦ Enviar ao Claude</button>
+      </div>
+
+      <div class="bk extens">
+        <div class="bkh"><span class="bkn">EX7</span><span class="bkt">Extensão Pipefy Pipe 14 Manutenção</span></div>
+        <p class="bkd">Card novo pra franquia em UTI → badge + priorização automática na coluna + sincronia bidirecional de status com o passo UTI do Sapron.</p>
+        <button class="btn-claude" onclick="sendMelhoriaToClaude(this)">✦ Enviar ao Claude</button>
+      </div>
+
+      <div class="bk extens">
+        <div class="bkh"><span class="bkn">EX8</span><span class="bkt">Extensão Portal MGO</span></div>
+        <p class="bkd">Comunicados pros franqueados em UTI ganham tag "UTI" + obrigação de leitura marcada. Franquia sabe que a mensagem é parte do plano, não comunicado comum.</p>
+        <button class="btn-claude" onclick="sendMelhoriaToClaude(this)">✦ Enviar ao Claude</button>
+      </div>
+
+      <div class="bk extens">
+        <div class="bkh"><span class="bkn">EX9</span><span class="bkt">Extensão Taskdex (board do time BackOffice)</span></div>
+        <p class="bkd">Task vinculada a UTI → badge no card do board, link pro thread do Slack do G00, link pro card da Central, prazo sincronizado com a data-limite do passo.</p>
+        <button class="btn-claude" onclick="sendMelhoriaToClaude(this)">✦ Enviar ao Claude</button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<p class="foot">v2.4 · 20/10/2026 · <b>Ray</b> (BackOffice Franquias) · análise refeita após bate-pronta contra API <code>uti_leitura</code> + ajustes manuais da Ray (gaps 00/0A/0B pedidos ao David). v2.4 soma a seção 05 de melhorias (7 automação · 7 agentes · 9 extensão) pra ganho de qualidade e escalabilidade. Entregue pro David Soares (coord. Admin/Financeiro Franquias).</p>
 
 </div>
 
 <script>
-const KEY='uti_check_v23';
+const KEY='uti_check_v24';
 const state=JSON.parse(localStorage.getItem(KEY)||'{}');
 
 function save(){localStorage.setItem(KEY,JSON.stringify(state));updateProg();}
@@ -801,6 +979,16 @@ function sendBacklogToClaude(btn){
   } else {
     prompt=`Você é dev da Central da UTI (${FERRAMENTA}) + analista de processos. Gap de ALINHAMENTO: processo e ferramenta existem mas não conversam.\n\n## Alinhamento ${id} · ${title}\n**Origem:** Processo × Ferramenta\n\n### Achado\n${desc}\n\n### Referências\n- Check-list: ${REPO_URL}\n- ${PROCESSO}\n- API: uti_leitura\n\n### Peço:\n1. Separe o que é ferramenta × processo × ambos.\n2. Quem muda primeiro pra desbloquear o outro.\n3. Desenho da integração.\n4. Rascunhe critérios de aceite.`;
   }
+  window.open(CLAUDE_URL+encodeURIComponent(prompt),'_blank','noopener');
+}
+
+function sendMelhoriaToClaude(btn){
+  const el=btn.closest('.bk');
+  const id=el.querySelector('.bkn').textContent.trim();
+  const title=el.querySelector('.bkt').textContent.trim();
+  const desc=el.querySelector('.bkd').textContent.trim();
+  const tipo=el.classList.contains('autom')?'Automação (cron/trigger)':el.classList.contains('agente')?'Agente (IA aplicada)':el.classList.contains('extens')?'Extensão de navegador (overlay nos sistemas-irmãos)':'Melhoria';
+  const prompt=`Você é dev da Central da UTI (${FERRAMENTA}) + arquiteto de solução. Este item é uma indicação de melhoria pra ganho de qualidade e escalabilidade — ainda não tem desenho fechado.\n\n## Melhoria ${id} · ${title}\n**Tipo:** ${tipo}\n\n### Achado\n${desc}\n\n### Referências\n- Check-list: ${REPO_URL}\n- ${PROCESSO}\n- API de leitura: GET https://rksgmplciyyslegcadvw.supabase.co/rest/v1/rpc/uti_leitura\n\n### Peço:\n1. Avalie viabilidade técnica (o que precisa existir pra isso funcionar: dados, eventos, APIs).\n2. Proponha o desenho (fluxo, componentes, integrações, stack sugerida).\n3. Estime impacto: quem economiza tempo, qual métrica melhora, qual risco mitiga.\n4. Liste pré-requisitos e dependências com outros gaps do check-list.\n5. Rascunhe critérios de aceite (3-5 itens verificáveis) pra entrar no check-list como gap formal.`;
   window.open(CLAUDE_URL+encodeURIComponent(prompt),'_blank','noopener');
 }
 
