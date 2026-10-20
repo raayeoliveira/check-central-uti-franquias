@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Check-list · Central da UTI × Processo UTI de Franquias</title>
+<title>Check-list v2 · Central da UTI × Processo UTI de Franquias</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
 <style>
 :root{
@@ -128,9 +128,11 @@ h2{font-size:clamp(19px,3.1vw,24px);letter-spacing:-.016em}
 .note{border-radius:11px;padding:14px 17px;font-size:14px;margin-top:20px;line-height:1.58;background:var(--brand-soft);border:1px solid var(--brand-line)}
 .note.warn{background:var(--amber-soft);border-color:var(--amber-line)}
 .note.stop{background:var(--coral-soft);border-color:var(--coral-line)}
+.note.ok{background:var(--green-soft);border-color:var(--green-line)}
 .note .lbl{display:block;font-size:10.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;margin-bottom:7px;color:var(--brand-ink)}
 .note.warn .lbl{color:var(--ink-2)}
 .note.stop .lbl{color:var(--coral-ink)}
+.note.ok .lbl{color:var(--green-ink)}
 
 .legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:18px;font-size:13px;color:var(--ink-2)}
 .legend span{display:inline-flex;align-items:center;gap:8px}
@@ -167,6 +169,13 @@ h2{font-size:clamp(19px,3.1vw,24px);letter-spacing:-.016em}
 .bkgroup > .bkhd .bkdot.align{background:var(--amber)}
 .bkgroup > .bksub{font-size:13.5px;color:var(--ink-3);line-height:1.55;margin-bottom:4px}
 
+.doneblk{margin-top:18px;background:var(--surface);border:1px solid var(--green-line);border-left:4px solid var(--green);border-radius:11px;padding:16px 20px}
+.doneblk h3{font-size:16px;color:var(--green-ink);margin-bottom:4px}
+.doneblk ul{margin:10px 0 0;padding-left:20px;font-size:13.5px;color:var(--ink-2);line-height:1.72}
+.doneblk ul li{margin:3px 0}
+.doneblk ul li b{color:var(--ink);font-weight:600}
+.doneblk .ev{font-size:11.5px;color:var(--ink-3);font-family:"JetBrains Mono",monospace;display:block;margin-top:2px}
+
 .foot{padding-block:30px 0;margin-top:34px;border-top:1px solid var(--rule);font-size:13px;color:var(--ink-3);line-height:1.65}
 :focus-visible{outline:2px solid var(--brand);outline-offset:2px}
 @media (max-width:680px){
@@ -177,50 +186,78 @@ h2{font-size:clamp(19px,3.1vw,24px);letter-spacing:-.016em}
 <div class="wrap">
 
 <header class="mast">
-  <p class="kicker">Seazone · BackOffice Franquias · Central da UTI + integrações</p>
-  <h1>Check-list para o desenvolvedor</h1>
-  <p class="deck">7 gaps entre a <b>Central da UTI</b> (+ Sapron, Hub Consultoria, Stop de Crescimento, Suporte CS Franquias, ScorePulse) e o <b>Processo UTI de Franquias v1.0</b> (19/10/2026). Cada item indica se a origem do problema está na <b>Ferramenta</b> (sistema não implementa), no <b>Processo</b> (regra em aberto) ou no <b>Alinhamento</b> (os dois existem mas não conversam). Cada gap tem botão <b>✦ Enviar ao Claude</b> — abre uma conversa nova com todo o contexto e os critérios de aceite prontos.</p>
+  <p class="kicker">Seazone · BackOffice Franquias · Central da UTI × API uti_leitura</p>
+  <h1>Check-list v2.0 para o desenvolvedor</h1>
+  <p class="deck">Análise refeita em <b>20/10/2026</b> depois de ler o <b>Processo UTI de Franquias v1.0</b> (Isabella) e a API de leitura da própria Central (<code>uti_leitura</code>). <b>A ferramenta já implementa muito mais do que o doc deixa transparecer</b> — a v1 do check-list tinha 7 gaps, metade já estava feita. Aqui vão só os 7 que sobraram, honestos, cada um com evidência da bate-pronta.</p>
   <div class="badges">
-    <span class="badge b">v1.0 · 20/10/2026</span>
-    <span class="badge r">4 P1</span>
+    <span class="badge b">v2.0 · 20/10/2026</span>
+    <span class="badge g">8 confirmados prontos</span>
+    <span class="badge r">3 P1</span>
     <span class="badge a">2 P2</span>
-    <span class="badge g">1 P3</span>
-    <span class="badge b">+ 26 backlog</span>
+    <span class="badge b">2 P3</span>
+    <span class="badge b">+ 17 backlog</span>
   </div>
 </header>
 
 <div class="execsum">
   <div class="es tool">
     <span class="esh">Ferramenta</span>
-    <span class="esn">11</span>
-    <span class="est">gaps intrínsecos da Central e integrações <b>(2 prioritários · 9 backlog)</b></span>
+    <span class="esn">7</span>
+    <span class="est">gaps intrínsecos <b>(2 prioritários · 5 backlog)</b></span>
     <ul>
-      <li>Comparativo D30 automático por frente não existe</li>
-      <li>Filtros nativos "passo atrasado" / "contato atrasado" / card laranja</li>
-      <li>Central ainda em staging; cronjob de 11h sem monitoramento</li>
+      <li>Whitelist "só alerta" não aparece na API</li>
+      <li>Rodada diária sem health check</li>
+      <li>UI ainda em stg (API já pública)</li>
     </ul>
   </div>
   <div class="es proc">
     <span class="esh">Processo</span>
-    <span class="esn">14</span>
-    <span class="est">decisões em aberto no v1.0 <b>(0 prioritários · 14 backlog)</b></span>
+    <span class="esn">10</span>
+    <span class="est">decisões em aberto no v1.0 <b>(0 prioritários · 10 backlog)</b></span>
     <ul>
-      <li>Divisão Vivianny × Gestor Regional nos check-ins (ponto 2)</li>
-      <li>Modelo de treinamento das áreas (ponto 1)</li>
-      <li>Critério fechado de "caso grave" além do stop total</li>
+      <li>Divisão Vivianny × gestor regional nos check-ins (ponto 2)</li>
+      <li>Divergência doc × ferramenta (horário rodada, régua carteira)</li>
+      <li>Critério fechado de "caso grave"</li>
     </ul>
   </div>
   <div class="es align">
     <span class="esh">Alinhamento</span>
-    <span class="esn">8</span>
-    <span class="est">processo e ferramenta não conversam <b>(5 prioritários · 3 backlog)</b></span>
+    <span class="esn">5</span>
+    <span class="est">processo e ferramenta não conversam <b>(3 prioritários · 2 backlog)</b></span>
     <ul>
-      <li>Passos da Consultoria não chegam ao Hub (Isabella avisa por Slack)</li>
-      <li>Linha de base das métricas por plano não é snapshotada</li>
-      <li>Call D3 vira ✎ contato (texto livre) — impossível auditar</li>
+      <li>Hub Consultoria: integração "sugerida" não vira "agendada"</li>
+      <li>Call D3 registra como contato (texto livre), não passo nativo</li>
+      <li>Rayanne/David fora da cópia dos e-mails</li>
     </ul>
   </div>
 </div>
+
+<section>
+  <div class="shead"><span class="sn">01</span><h2>Já está pronto — validado contra a API em 20/10</h2></div>
+  <p class="sub">Antes de abrir qualquer gap, o que a Central já faz. Oito itens que a v1 do check-list levantou como pendência e a bate-pronta confirmou prontos.</p>
+
+  <div class="doneblk">
+    <h3>✓ Validado pela API uti_leitura</h3>
+    <ul>
+      <li><b>Baseline das métricas por plano</b> — campo <code>metas_base</code> dos casos em execução traz snapshot completo (airbnb, graves, carteira, criticos, abertas_30d, urgentes_7d, manut_por_imovel, rede_manut_por_imovel).
+        <span class="ev">casos?p_escopo=franquia&amp;fase=execucao → 4 casos, todos com metas_base preenchida</span></li>
+      <li><b>Filtros nativos do Kanban</b> — "busca, responsável, protocolo, região, Minha fila, passo atrasado, contato atrasado, reincidência, só GOps/Spot, só do Derek".
+        <span class="ev">aba Regras e fontes · bloco "Kanban de acompanhamento"</span></li>
+      <li><b>Resumo semanal por módulo</b> — "Resumo semanal no menu de cada módulo".
+        <span class="ev">aba Regras e fontes · mesmo bloco</span></li>
+      <li><b>Comparativo D30 automático</b> — "O robô compara as metas: nenhum plano aponta problema = acompanhamento; melhorou em parte = prorroga 30 dias (1 vez); sem melhora = aprovadores decidem".
+        <span class="ev">aba Regras e fontes · bloco "UTI de Franquias — etapas"</span></li>
+      <li><b>Hub Consultoria conversa com a Central</b> — integração <code>consultoria_hub</code> ativa com estados <code>sugerida</code>, <code>agendada|data</code>, <code>realizada|visita|N</code>, <code>cancelada</code>.
+        <span class="ev">integracoes → 60+ registros nos últimos 15 dias</span></li>
+      <li><b>Stop de Crescimento conversa com a Central</b> — integração <code>stop_crescimento / existente</code> registrada nos casos em execução.
+        <span class="ev">caso 9 (CMC-001-GRJ · Sônia): stop_crescimento = existente em 16/10</span></li>
+      <li><b>E-mails disparados com log auditável</b> — eventos registram envio com destinatários e cópias explícitos.
+        <span class="ev">evento tipo "contato" · "E-mail Pré-UTI enviado · cópia: vivianny@..., isabella@..."</span></li>
+      <li><b>Captação ligada</b> — integração <code>captacao / nao_se_aplica</code> para franquias que não são únicas da região.
+        <span class="ev">caso 9: captacao = nao_se_aplica em 16/10</span></li>
+    </ul>
+  </div>
+</section>
 
 <div class="prog" id="prog">
   <div class="ph">
@@ -247,30 +284,30 @@ h2{font-size:clamp(19px,3.1vw,24px);letter-spacing:-.016em}
 </div>
 
 <section>
-  <div class="shead"><span class="sn">01</span><h2>Gaps para implementar</h2></div>
-  <p class="sub">Ordem de prioridade. Marque cada item conforme resolver — o progresso salva no navegador.</p>
+  <div class="shead"><span class="sn">02</span><h2>Gaps reais que ainda faltam</h2></div>
+  <p class="sub">Sete gaps que a bate-pronta confirmou pendentes. Marque cada item conforme resolver — o progresso salva no navegador.</p>
 
   <div class="gaps">
 
     <div class="gp" data-id="1">
       <div class="gh">
         <span class="gnn">01</span>
-        <span class="gtxt">Passos da Consultoria Regional não chegam ao Hub automaticamente</span>
+        <span class="gtxt">Integração Consultoria entra como "sugerida" sem data e não vira "agendada" sozinha</span>
         <span class="prio p1">P1 · trava ciclo</span>
         <span class="origin align">Alinhamento</span>
       </div>
       <div class="body">
-        <div class="row"><span class="rk">Referência no processo</span><span class="rv">Seção 5 · "na UTI de Franquias ainda não vão sozinhos para o hub da Consultoria"</span></div>
-        <div class="row"><span class="rk">Como é hoje</span><span class="rv dim">Isabella avisa a Camila (coord. Consultoria Regional) por Slack cada plano iniciado. Risco de visita D14/D21/D5 cair no esquecimento</span></div>
-        <div class="row"><span class="rk">Risco</span><span class="rv dim">Consultor da UF não vê o passo. Visita não acontece. Plano prorroga sem evidência presencial. Reconhecido no ponto 3 da seção 9</span></div>
-        <div class="row"><span class="rk">Endpoint sugerido</span><span class="rv"><code>POST /api/v1/consultoria/visitas</code> da Central → Hub (franchise_id, plano, passo, prazo, tag UTI)</span></div>
+        <div class="row"><span class="rk">Referência no processo</span><span class="rv">Seção 5 · "na UTI de Franquias ainda não vão sozinhos para o hub da Consultoria" + aba Regras · "o envio automático ao destino ainda não está ligado" (reconhecido pra UTI de Imóveis)</span></div>
+        <div class="row"><span class="rk">Como é hoje (bate-pronta)</span><span class="rv dim">Casos 621 e 622 têm <code>consultoria_hub / sugerida|</code> sem data desde 06/10 — 14 dias parados. Caso 9 (Sônia · em execução) <b>não tem nenhuma integração consultoria_hub</b> apesar do plano Manutenção prever conferências D7 e D21</span></div>
+        <div class="row"><span class="rk">Risco</span><span class="rv dim">Visitas D14 (Ocorrências), D21 (Estrutura), D5+D21 (Prédio) não acontecem. Processo prescreve, Central registra "sugerida" e para por aí — Isabella precisa avisar Camila por Slack</span></div>
+        <div class="row"><span class="rk">Endpoint sugerido</span><span class="rv">Dispatch automático: <code>POST → hub/visitas</code> no primeiro passo que depende de consultor, com <code>franchise_id</code>, <code>plano</code>, <code>passo</code>, <code>prazo</code>, tag <code>UTI</code></span></div>
       </div>
       <div class="todo">
         <span class="tl">Critério de aceite</span>
-        <div class="item"><input type="checkbox" id="i1a"><label for="i1a">Quando o plano Ocorrências / Estrutura / Prédio começa, a Central dispara POST pro Hub com o passo e a data-limite</label></div>
-        <div class="item"><input type="checkbox" id="i1b"><label for="i1b">Hub recebe com tag <code>UTI</code> e encaixa na agenda do consultor da UF (tela Planejamento)</label></div>
-        <div class="item"><input type="checkbox" id="i1c"><label for="i1c">Quando o consultor marca "realizada" no Hub, Central recebe webhook e fecha o passo no card automaticamente</label></div>
-        <div class="item"><input type="checkbox" id="i1d"><label for="i1d">Se a visita cair depois do prazo do passo, Hub emite alerta pra coordenação decidir antecipar</label></div>
+        <div class="item"><input type="checkbox" id="i1a"><label for="i1a">Quando o plano Ocorrências / Estrutura / Prédio começa, a Central dispara POST pro Hub com data-limite do passo</label></div>
+        <div class="item"><input type="checkbox" id="i1b"><label for="i1b">Hub aceita o POST, cria a visita com tag <code>UTI</code> e devolve <code>id_externo</code> + <code>data_agendada</code></label></div>
+        <div class="item"><input type="checkbox" id="i1c"><label for="i1c">Status na Central vira <code>agendada|data</code> no mesmo instante (não mais <code>sugerida|</code>)</label></div>
+        <div class="item"><input type="checkbox" id="i1d"><label for="i1d">Casos com <code>sugerida|</code> parados há mais de 2 du geram alerta pra Camila (ou Vivianny no interino)</label></div>
       </div>
       <div class="btns">
         <button class="btn-claude" onclick="sendGapToClaude(this)">Enviar ao Claude</button>
@@ -281,23 +318,22 @@ h2{font-size:clamp(19px,3.1vw,24px);letter-spacing:-.016em}
     <div class="gp" data-id="2">
       <div class="gh">
         <span class="gnn">02</span>
-        <span class="gtxt">Linha de base das métricas por plano não é snapshotada</span>
+        <span class="gtxt">Call de alinhamento D3 registra como "contato", não como passo nativo auditável</span>
         <span class="prio p1">P1 · trava ciclo</span>
         <span class="origin align">Alinhamento</span>
-        <span class="origin tool">Ferramenta</span>
       </div>
       <div class="body">
-        <div class="row"><span class="rk">Referência no processo</span><span class="rv">Seção 3 · "As métricas do dia viram a linha de base das metas"</span></div>
-        <div class="row"><span class="rk">Como é hoje</span><span class="rv dim">Processo prescreve mas Central não congela snapshot no momento da decisão de entrada. Sem snapshot, comparação do D30 é impossível</span></div>
-        <div class="row"><span class="rk">Risco</span><span class="rv dim">D30 compara "métricas de hoje × métricas de hoje" — fica cosmético. Robô não consegue decidir "todas dentro / metade / sem melhora"</span></div>
-        <div class="row"><span class="rk">Endpoint sugerido</span><span class="rv"><code>POST /api/v1/uti/casos/{id}/baseline</code> grava snapshot ao mover card pra Comunicado</span></div>
+        <div class="row"><span class="rk">Referência no processo</span><span class="rv">Seção 4 · "✓ Concluir passo 'Call de alinhamento feita'" até D3; Seção 8 · critério de qualidade "Toda franquia em Comunicado tem call registrada até D3"</span></div>
+        <div class="row"><span class="rk">Como é hoje (bate-pronta)</span><span class="rv dim">Evento do caso 9 (Sônia): "Robô: 3 dias depois do e-mail, o plano começa (<b>a call segue como contato</b>)". Ou seja, não existe passo nativo — vira ✎ contato (texto livre)</span></div>
+        <div class="row"><span class="rk">Risco</span><span class="rv dim">Impossível medir o critério de qualidade da seção 8 em massa. Call pode nem ter acontecido e ninguém pega até Isabella ler cada card</span></div>
+        <div class="row"><span class="rk">Mudança sugerida</span><span class="rv">Novo passo em <code>protocolos.franquia.etapas.comunicacao</code>: <code>call_alinhamento_feita</code> com <code>data</code>, <code>responsavel</code>, <code>consultor_participou</code>, <code>resumo</code></span></div>
       </div>
       <div class="todo">
         <span class="tl">Critério de aceite</span>
-        <div class="item"><input type="checkbox" id="i2a"><label for="i2a">Baseline por plano (manutenção, ocorrências, avaliações, anúncios, estrutura, prédio) é gravada na transição Aguardando aprovação → Comunicado</label></div>
-        <div class="item"><input type="checkbox" id="i2b"><label for="i2b">Payload inclui: todas as métricas-fonte citadas no processo (urgentes, abertas 30+, gravíssimas 90d, carteira crítica, precisão, etc.)</label></div>
-        <div class="item"><input type="checkbox" id="i2c"><label for="i2c">Baseline fica visível na ficha do caso, lado a lado com as métricas atuais</label></div>
-        <div class="item"><input type="checkbox" id="i2d"><label for="i2d">Caso em "só acompanhar 30 dias" também grava baseline (pra alerta de recaída)</label></div>
+        <div class="item"><input type="checkbox" id="i2a"><label for="i2a">Card em Comunicado ganha passo nativo "call de alinhamento" com data limite D3 do e-mail de entrada</label></div>
+        <div class="item"><input type="checkbox" id="i2b"><label for="i2b">Passo exige: data, quem conduziu (Vivianny ou gestor regional), consultor participou (bool), resumo</label></div>
+        <div class="item"><input type="checkbox" id="i2c"><label for="i2c">Se D3 vencer sem passo marcado, card entra no filtro "call atrasada" e muda cor</label></div>
+        <div class="item"><input type="checkbox" id="i2d"><label for="i2d">Resumo semanal da Isabella mostra % de calls feitas até D3</label></div>
       </div>
       <div class="btns">
         <button class="btn-claude" onclick="sendGapToClaude(this)">Enviar ao Claude</button>
@@ -308,22 +344,21 @@ h2{font-size:clamp(19px,3.1vw,24px);letter-spacing:-.016em}
     <div class="gp" data-id="3">
       <div class="gh">
         <span class="gnn">03</span>
-        <span class="gtxt">Comparativo automático D30 por frente não existe</span>
+        <span class="gtxt">Rayanne e David fora da cópia dos e-mails automáticos</span>
         <span class="prio p1">P1 · trava ciclo</span>
-        <span class="origin tool">Ferramenta</span>
+        <span class="origin align">Alinhamento</span>
       </div>
       <div class="body">
-        <div class="row"><span class="rk">Referência no processo</span><span class="rv">Seção 6 · "o robô compara, plano a plano, as métricas do dia da decisão com as de hoje"</span></div>
-        <div class="row"><span class="rk">Como é hoje</span><span class="rv dim">Robô Derek descrito mas lógica D30 ainda não está rodando. Rito "todas dentro / metade / sem melhora" ainda sem motor</span></div>
-        <div class="row"><span class="rk">Regra do processo</span><span class="rv dim">Todas dentro = Acompanhamento · Metade+ = prorroga 30d (uma vez) · Sem melhora = aprovadoras decidem distrato ou nova chance em 3d</span></div>
-        <div class="row"><span class="rk">Endpoint sugerido</span><span class="rv"><code>GET /api/v1/uti/casos/{id}/resultado-d30</code> retorna status por plano + decisão sugerida</span></div>
+        <div class="row"><span class="rk">Referência no processo</span><span class="rv">Seção 9 · ponto 4: "incluir Rayanne e David (pedido enviado à Carol)"</span></div>
+        <div class="row"><span class="rk">Como é hoje (bate-pronta)</span><span class="rv dim">Eventos tipo "contato" confirmam cópia só pra <code>vivianny.aguilera@seazone.com.br</code> e <code>isabella.bino@seazone.com.br</code>. Rayanne e David não recebem nenhum alerta de Pré-UTI/UTI</span></div>
+        <div class="row"><span class="rk">Risco</span><span class="rv dim">Gerente de BackOffice (Rayanne) e Coordenador Admin (David) sem visibilidade sobre quem entrou na UTI. Stop + Captação dependem do David</span></div>
+        <div class="row"><span class="rk">Mudança sugerida</span><span class="rv">Config do template de e-mail aceita <code>cco</code> parametrizável; defaults do v1.0: <code>vivianny@</code>, <code>isabella@</code>, <code>rayanne.oliveira@</code>, <code>david.soares@</code></span></div>
       </div>
       <div class="todo">
         <span class="tl">Critério de aceite</span>
-        <div class="item"><input type="checkbox" id="i3a"><label for="i3a">Rodada diária 11h detecta quando um caso completa D30 e move card pra Resultado</label></div>
-        <div class="item"><input type="checkbox" id="i3b"><label for="i3b">Endpoint retorna, por plano: baseline, atual, meta, status (dentro / próximo / fora)</label></div>
-        <div class="item"><input type="checkbox" id="i3c"><label for="i3c">Decisão automática aplicada quando "todas dentro" (move pra Acompanhamento) e "metade+" (prorroga + e-mail "mais 30 dias")</label></div>
-        <div class="item"><input type="checkbox" id="i3d"><label for="i3d">Quando "sem melhora", card fica em Resultado com flag "aguardando aprovadoras · 3 du"</label></div>
+        <div class="item"><input type="checkbox" id="i3a"><label for="i3a">Lista de cópia dos templates é editável na aba "Regras e fontes" (não hardcoded)</label></div>
+        <div class="item"><input type="checkbox" id="i3b"><label for="i3b">Rayanne e David adicionados aos 4 templates (preuti, entrada, prorrogação, saída) após OK da Carol</label></div>
+        <div class="item"><input type="checkbox" id="i3c"><label for="i3c">Teste de disparo registra todos os destinatários no evento (não só os principais)</label></div>
       </div>
       <div class="btns">
         <button class="btn-claude" onclick="sendGapToClaude(this)">Enviar ao Claude</button>
@@ -334,22 +369,21 @@ h2{font-size:clamp(19px,3.1vw,24px);letter-spacing:-.016em}
     <div class="gp" data-id="4">
       <div class="gh">
         <span class="gnn">04</span>
-        <span class="gtxt">Call de alinhamento até D3 não tem campo verificável</span>
-        <span class="prio p1">P1 · trava ciclo</span>
+        <span class="gtxt">Divergências doc × ferramenta precisam ser reconciliadas</span>
+        <span class="prio p2">P2 · retrabalho</span>
         <span class="origin align">Alinhamento</span>
       </div>
       <div class="body">
-        <div class="row"><span class="rk">Referência no processo</span><span class="rv">Seção 4 · "✓ Concluir passo 'Call de alinhamento feita'" até D3; Seção 8 · "Toda franquia em Comunicado tem call registrada até D3"</span></div>
-        <div class="row"><span class="rk">Como é hoje</span><span class="rv dim">Vira ✎ contato (texto livre). Isabella checa manualmente lendo o card. Impossível auditar em massa</span></div>
-        <div class="row"><span class="rk">Risco</span><span class="rv dim">Critério de qualidade da seção 8 não dá pra medir. Call atrasa e ninguém pega até Isabella ler</span></div>
-        <div class="row"><span class="rk">Endpoint sugerido</span><span class="rv">Passo nativo <code>call_alinhamento_feita</code> com campos <code>data</code>, <code>responsavel</code>, <code>resumo</code>, <code>consultor_participou</code></span></div>
+        <div class="row"><span class="rk">Referência no processo</span><span class="rv">Documento Isabella 19/10/2026 · vários pontos</span></div>
+        <div class="row"><span class="rk">Como é hoje (bate-pronta)</span><span class="rv dim"><b>Horário:</b> doc diz "diagnóstico diário às 11h"; eventos mostram rodada às 14h. <b>Régua de carteira crítica:</b> doc diz "30%+"; aba Regras diz "20%+ (Excelente: 30%)". <b>Capacidade:</b> doc diz "5 franquias"; regra confirma. <b>Camila:</b> doc diz "até lá Vivianny"; aba Regras aponta Camila como dona de 4 protocolos</span></div>
+        <div class="row"><span class="rk">Risco</span><span class="rv dim">Processo escrito não bate com o que o Derek executa. Treinamento das áreas (seção 9 ponto 1) usaria conteúdo divergente. Risco de governança</span></div>
+        <div class="row"><span class="rk">Caminho</span><span class="rv">Reconciliar: Isabella atualiza o doc (ou Carol/dev ajustam a ferramenta). Decidir caso a caso. Lista completa de divergências no backlog A2</span></div>
       </div>
       <div class="todo">
         <span class="tl">Critério de aceite</span>
-        <div class="item"><input type="checkbox" id="i4a"><label for="i4a">Card em Comunicado ganha passo "Call de alinhamento" com data limite D3 (do e-mail)</label></div>
-        <div class="item"><input type="checkbox" id="i4b"><label for="i4b">Passo exige: data da call, quem conduziu (Vivianny ou gestor regional), consultor participou (sim/não), resumo (texto livre)</label></div>
-        <div class="item"><input type="checkbox" id="i4c"><label for="i4c">Se D3 vencer sem passo marcado, card fica vermelho e aparece no filtro "call atrasada" do Kanban</label></div>
-        <div class="item"><input type="checkbox" id="i4d"><label for="i4d">Relatório semanal da Isabella conta % de calls feitas até D3 por mês</label></div>
+        <div class="item"><input type="checkbox" id="i4a"><label for="i4a">Lista completa de divergências doc × API documentada (gerar pela API novamente antes de treinar as áreas)</label></div>
+        <div class="item"><input type="checkbox" id="i4b"><label for="i4b">Para cada divergência: decisão "doc muda" ou "ferramenta muda", com responsável</label></div>
+        <div class="item"><input type="checkbox" id="i4c"><label for="i4c">Doc v1.1 publicado antes do treinamento</label></div>
       </div>
       <div class="btns">
         <button class="btn-claude" onclick="sendGapToClaude(this)">Enviar ao Claude</button>
@@ -360,23 +394,22 @@ h2{font-size:clamp(19px,3.1vw,24px);letter-spacing:-.016em}
     <div class="gp" data-id="5">
       <div class="gh">
         <span class="gnn">05</span>
-        <span class="gtxt">Filtros nativos "passo atrasado" + "contato atrasado" + flag card laranja</span>
+        <span class="gtxt">Whitelist "só alerta, nunca entra em UTI" não aparece na API</span>
         <span class="prio p2">P2 · retrabalho</span>
         <span class="origin tool">Ferramenta</span>
-        <span class="origin align">Alinhamento</span>
       </div>
       <div class="body">
-        <div class="row"><span class="rk">Referência no processo</span><span class="rv">Seção 5 · "todo dia, filtro de passo atrasado e contato atrasado no Kanban"; Seção 8 · "Zero cards laranja (sem contato há mais de 7 dias)"</span></div>
-        <div class="row"><span class="rk">Como é hoje</span><span class="rv dim">A rotina da Isabella depende desses filtros, mas o processo é a primeira vez que eles aparecem como requisito. Precisa confirmar se já existem no Kanban atual da Central (stg)</span></div>
-        <div class="row"><span class="rk">Risco</span><span class="rv dim">Sem filtro nativo, Isabella faz inspeção manual card a card. Não escala além dos 5 em UTI + fila</span></div>
-        <div class="row"><span class="rk">Endpoint sugerido</span><span class="rv"><code>GET /api/v1/uti/casos?filtro=passo_atrasado|contato_atrasado|laranja</code></span></div>
+        <div class="row"><span class="rk">Referência no processo</span><span class="rv">Seção 1 · "Franquia na lista 'só alerta, nunca entra em UTI' (hoje: Rodrigo Ruas)"</span></div>
+        <div class="row"><span class="rk">Como é hoje (bate-pronta)</span><span class="rv dim">Regras visíveis dizem apenas "franquia em Integração ou Stand by fica fora" (Score provisório). Nenhum recurso da API expõe whitelist. Rodrigo Ruas pode estar hardcoded no robô, OU como status especial no cadastro</span></div>
+        <div class="row"><span class="rk">Risco</span><span class="rv dim">Entrada/saída da lista exige deploy. Decisão humana vira débito de código</span></div>
+        <div class="row"><span class="rk">Endpoint sugerido</span><span class="rv"><code>POST /api/v1/uti/whitelist</code> com <code>franchise_id</code>, <code>motivo</code>, <code>aprovador</code>, <code>validade</code></span></div>
       </div>
       <div class="todo">
         <span class="tl">Critério de aceite</span>
-        <div class="item"><input type="checkbox" id="i5a"><label for="i5a">Kanban aceita filtro combinado por: etapa, responsável, status atrasado, cor</label></div>
-        <div class="item"><input type="checkbox" id="i5b"><label for="i5b">Card com último ✎ contato &gt; 7 dias ganha cor laranja automática</label></div>
-        <div class="item"><input type="checkbox" id="i5c"><label for="i5c">Card com passo vencido ganha badge "atrasado · N dias"</label></div>
-        <div class="item"><input type="checkbox" id="i5d"><label for="i5d">Visão "Minha fila" por responsável (Vivianny, Vinicius, Victória, Larissa, consultor)</label></div>
+        <div class="item"><input type="checkbox" id="i5a"><label for="i5a">David confirma com o dev se Rodrigo Ruas é hardcoded ou já existe tabela</label></div>
+        <div class="item"><input type="checkbox" id="i5b"><label for="i5b">Se hardcoded: CRUD na aba "Regras e fontes" (limitado a aprovadoras)</label></div>
+        <div class="item"><input type="checkbox" id="i5c"><label for="i5c">Robô consulta whitelist antes de mover de Alerta → Pré-UTI</label></div>
+        <div class="item"><input type="checkbox" id="i5d"><label for="i5d">Entrada exige motivo + validade (padrão: 90 dias, renovável)</label></div>
       </div>
       <div class="btns">
         <button class="btn-claude" onclick="sendGapToClaude(this)">Enviar ao Claude</button>
@@ -387,22 +420,21 @@ h2{font-size:clamp(19px,3.1vw,24px);letter-spacing:-.016em}
     <div class="gp" data-id="6">
       <div class="gh">
         <span class="gnn">06</span>
-        <span class="gtxt">Handshake Central ↔ Stop de Crescimento (entrada e alta)</span>
-        <span class="prio p2">P2 · retrabalho</span>
-        <span class="origin align">Alinhamento</span>
+        <span class="gtxt">Rodada diária sem health check</span>
+        <span class="prio p3">P3 · nice-to-have</span>
+        <span class="origin tool">Ferramenta</span>
       </div>
       <div class="body">
-        <div class="row"><span class="rk">Referência no processo</span><span class="rv">Seção 4 · "pede o Stop de Crescimento (validação de uma gerência; se já está em stop, não pede outro)"; Seção 8 · "Stop retirado em até 2 dias úteis após a alta"</span></div>
-        <div class="row"><span class="rk">Como é hoje</span><span class="rv dim">Isabella aciona manualmente a Captação; depois da alta, confere na mão se o stop foi retirado. Dois sistemas, zero conversa</span></div>
-        <div class="row"><span class="rk">Risco</span><span class="rv dim">Franquia em UTI sem stop (recebe imóveis novos no meio do plano) OU alta sem retirada do stop (segue paralisada)</span></div>
-        <div class="row"><span class="rk">Endpoint sugerido</span><span class="rv">Central: <code>POST → stopdecrescimento/pedidos</code> na entrada; <code>POST → stopdecrescimento/retiradas</code> na alta. Stop valida franquia já em stop</span></div>
+        <div class="row"><span class="rk">Referência no processo</span><span class="rv">Seção 1 · "diagnóstico diário 11h" / aba Regras · "atualização diária do robô + triagem e integrações a cada 15 min"</span></div>
+        <div class="row"><span class="rk">Como é hoje (bate-pronta)</span><span class="rv dim">Toda a UTI depende dessa rodada. Se falhar silenciosamente, só se descobre quando Isabella sentir falta de evento novo no card</span></div>
+        <div class="row"><span class="rk">Risco</span><span class="rv dim">Falha silenciosa paralisa Pré-UTI, planos e comparativo D30</span></div>
+        <div class="row"><span class="rk">Mudança sugerida</span><span class="rv">Job que posta <code>#uti-franquias</code>: "rodada OK · N cards processados" ou "FALHA · stack trace" todo dia após rodada principal</span></div>
       </div>
       <div class="todo">
         <span class="tl">Critério de aceite</span>
-        <div class="item"><input type="checkbox" id="i6a"><label for="i6a">Transição Aguardando aprovação → Comunicado dispara pedido de stop (idempotente)</label></div>
-        <div class="item"><input type="checkbox" id="i6b"><label for="i6b">Status do pedido ("aguardando gerência", "ativo", "já estava ativo") visível no card</label></div>
-        <div class="item"><input type="checkbox" id="i6c"><label for="i6c">Transição Acompanhamento → Recuperada dispara pedido de retirada</label></div>
-        <div class="item"><input type="checkbox" id="i6d"><label for="i6d">Após 2 du da alta sem retirada confirmada, card alerta Rayanne (Gerente BackOffice)</label></div>
+        <div class="item"><input type="checkbox" id="i6a"><label for="i6a">Rodada principal posta sucesso no canal (uma mensagem por dia)</label></div>
+        <div class="item"><input type="checkbox" id="i6b"><label for="i6b">Falha posta erro resumido no canal + DM pro dev de plantão</label></div>
+        <div class="item"><input type="checkbox" id="i6c"><label for="i6c">Métrica "última rodada bem-sucedida" exposta num endpoint simples pra outros sistemas consultarem</label></div>
       </div>
       <div class="btns">
         <button class="btn-claude" onclick="sendGapToClaude(this)">Enviar ao Claude</button>
@@ -413,21 +445,21 @@ h2{font-size:clamp(19px,3.1vw,24px);letter-spacing:-.016em}
     <div class="gp" data-id="7">
       <div class="gh">
         <span class="gnn">07</span>
-        <span class="gtxt">Whitelist "só alerta, nunca entra em UTI" parametrizável</span>
+        <span class="gtxt">Promoção da UI pra produção</span>
         <span class="prio p3">P3 · nice-to-have</span>
         <span class="origin tool">Ferramenta</span>
       </div>
       <div class="body">
-        <div class="row"><span class="rk">Referência no processo</span><span class="rv">Seção 1 · "Franquia na lista 'só alerta, nunca entra em UTI' (hoje: Rodrigo Ruas) também fica em Alerta"</span></div>
-        <div class="row"><span class="rk">Como é hoje</span><span class="rv dim">Precisa confirmar com o dev se Rodrigo Ruas está hardcoded ou já existe tabela</span></div>
-        <div class="row"><span class="rk">Risco</span><span class="rv dim">Entrada / saída da lista exige deploy. Decisão humana vira débito de código</span></div>
-        <div class="row"><span class="rk">Endpoint sugerido</span><span class="rv"><code>POST /api/v1/uti/whitelist</code> com <code>franchise_id</code>, <code>motivo</code>, <code>aprovador</code>, <code>validade</code></span></div>
+        <div class="row"><span class="rk">Referência no processo</span><span class="rv">Seção 6 · "Central da UTI: https://central-uti-stg.seazone.properties/"</span></div>
+        <div class="row"><span class="rk">Como é hoje (bate-pronta)</span><span class="rv dim">API de leitura já é pública em <code>rksgmplciyyslegcadvw.supabase.co</code> e serve 4 casos reais em execução (CMC, BLU, FLN×2). UI ainda roda no domínio -stg</span></div>
+        <div class="row"><span class="rk">Risco</span><span class="rv dim">Com o primeiro caso real (Sônia) em andamento desde 17/10 e visita Consultoria 19-20/10, operar em staging indefinidamente é débito</span></div>
+        <div class="row"><span class="rk">Mudança sugerida</span><span class="rv">Plano de corte: feature flags, dados, DNS <code>central-uti.seazone.properties</code></span></div>
       </div>
       <div class="todo">
         <span class="tl">Critério de aceite</span>
-        <div class="item"><input type="checkbox" id="i7a"><label for="i7a">Tela "Regras e fontes" ganha aba "Whitelist" (CRUD limitado a aprovadoras)</label></div>
-        <div class="item"><input type="checkbox" id="i7b"><label for="i7b">Robô consulta whitelist antes de mover de Alerta → Pré-UTI</label></div>
-        <div class="item"><input type="checkbox" id="i7c"><label for="i7c">Entrada na whitelist exige motivo + validade (padrão: 90 dias, renovável)</label></div>
+        <div class="item"><input type="checkbox" id="i7a"><label for="i7a">Dev confirma se dados em stg = dados em prod (ou se são bases separadas)</label></div>
+        <div class="item"><input type="checkbox" id="i7b"><label for="i7b">Plano de migração escrito (DNS, auth, feature flags)</label></div>
+        <div class="item"><input type="checkbox" id="i7c"><label for="i7c">Corte executado, doc da Isabella atualizado com nova URL</label></div>
       </div>
       <div class="btns">
         <button class="btn-claude" onclick="sendGapToClaude(this)">Enviar ao Claude</button>
@@ -439,89 +471,65 @@ h2{font-size:clamp(19px,3.1vw,24px);letter-spacing:-.016em}
 </section>
 
 <section>
-  <div class="shead"><span class="sn">02</span><h2>Contexto de referência</h2></div>
+  <div class="shead"><span class="sn">03</span><h2>Contexto de referência</h2></div>
   <p class="sub">Documentos e sistemas que o dev precisa ao lado.</p>
   <div class="note">
     <span class="lbl">Fontes</span>
-    <p><b>Processo UTI de Franquias v1.0</b> · 19/10/2026 — autoria Isabella Bino (BackOffice Franquias), dona das etapas Vivianny Aguilera, dona das regras Carolina Espindola</p>
+    <p><b>Processo UTI de Franquias v1.0</b> · 19/10/2026 — autoria Isabella Bino, dona das etapas Vivianny Aguilera, dona das regras Carolina Espindola</p>
     <p><b>Central da UTI (staging):</b> <code>https://central-uti-stg.seazone.properties/</code></p>
+    <p><b>API de leitura:</b> <code>GET https://rksgmplciyyslegcadvw.supabase.co/rest/v1/rpc/uti_leitura?p_recurso=&lt;recurso&gt;</code> · headers <code>apikey</code> + <code>x-api-key</code> · recursos: <code>indice</code>, <code>resumo</code>, <code>casos</code>, <code>eventos</code>, <code>integracoes</code>, <code>planos</code>, <code>pedidos</code>, <code>imoveis_hoje</code>, <code>qualidade</code>, <code>diagnostico_franquias</code>, <code>dados_diarios</code>, <code>protocolos</code>, <code>regras</code>, <code>historico_airbnb</code></p>
     <p><b>Hub Consultoria Regional:</b> <code>https://consultoriaregional.seazone.dev/consultoria/planejamento</code></p>
     <p><b>Stop de Crescimento:</b> <code>https://stopdecrescimento.seazone.properties/</code></p>
-    <p><b>ScorePulse (fonte do diagnóstico diário 11h):</b> <code>https://scorepulse.seazone.com.br</code></p>
-    <p><b>Sapron:</b> Central de Manutenção (cards tag <code>uti</code>), Central de Ocorrências e Multas, App da Qualidade, Suporte CS Franquias</p>
-    <p><b>E-mails automáticos:</b> conta <code>anfitrioes@seazone.com.br</code>, cópia Vivianny + Isabella (hoje); pendente adicionar Rayanne e David</p>
+    <p><b>ScorePulse:</b> <code>https://scorepulse.seazone.com.br</code></p>
     <p><b>Canal:</b> <code>#uti-franquias</code></p>
   </div>
-  <div class="note warn">
-    <span class="lbl">Decisões em aberto no processo (não são do dev)</span>
-    <p>Divisão Vivianny × Gestor Regional nos check-ins · Modelo de treinamento das áreas · Integração Hub Consultoria (confirmar com Carol) · Cópia e-mails Rayanne/David · Critério fechado de "caso grave" · SLA do interino "até Camila assumir" · Base da capacidade de 5 franquias · Rito de contestação das metas · Quem é "Diretoria" nos escalonamentos. <b>Enquanto não fecharem, alguns gaps da seção 01 ficam parciais.</b></p>
+  <div class="note ok">
+    <span class="lbl">Snapshot da UTI em 20/10/2026</span>
+    <p><b>Casos franquia:</b> 48 total — 5 em Sinal · 14 em Pré-UTI · 1 em Decisão · 4 em Execução · 1 em Observação · 1 Alta · 1 Distrato · 21 Fora</p>
+    <p><b>Casos imóvel:</b> 435 total — 167 em Fila · 79 em Tratamento · 189 Fora</p>
+    <p><b>Casos Conta 2:</b> 388 total — 121 Elegíveis · 96 em Iminência · 171 Fora</p>
   </div>
   <div class="note stop">
-    <span class="lbl">Primeiro caso real a validar o fluxo</span>
-    <p><b>Sônia</b> · plano começou em 17/10 (Manutenção e Ocorrências) · visita do consultor 19 e 20/10 · call de alinhamento com Vivianny prevista pra esta semana. <b>Nenhum passo D1 registrado ainda.</b> Começar por este caso ao testar os gaps 01, 02 e 04.</p>
+    <span class="lbl">Primeiro caso real a validar os gaps</span>
+    <p><b>CMC-001-GRJ · "Sônia"</b> · entrou em Execução em 17/10 · metas_base preenchida (airbnb 4,68 · 3 graves · carteira 57 · 6 críticos · 7 abertas 30+) · integrações <b>captacao=nao_se_aplica · email_entrada=enviado · stop_crescimento=existente</b> · <b>sem integração consultoria_hub</b> apesar do plano Manutenção prever D7 e D21. <b>Validar gaps 01, 02 e 03 por este caso primeiro.</b></p>
   </div>
 </section>
 
 <section>
-  <div class="shead"><span class="sn">03</span><h2>Backlog adicional · análise 20/10</h2></div>
-  <p class="sub">Achados complementares aos 7 gaps da seção 01. Aqui não há critério de aceite ainda — cada item tem botão <b>✦ Enviar ao Claude</b> que abre uma conversa nova pra transformar o achado em desenho técnico (Ferramenta), rascunho de decisão de retro (Processo), ou análise conjunta (Alinhamento).</p>
+  <div class="shead"><span class="sn">04</span><h2>Backlog adicional</h2></div>
+  <p class="sub">Achados complementares aos 7 gaps da seção 02. Sem critério de aceite — cada item tem botão <b>✦ Enviar ao Claude</b> pra virar desenho técnico (Ferramenta), rascunho de retro (Processo) ou análise conjunta (Alinhamento).</p>
 
   <div class="bkgroup">
     <div class="bkhd"><span class="bkdot tool"></span>Ferramenta · para avaliar com o dev</div>
-    <p class="bksub">Gaps intrínsecos da Central e dos sistemas-irmãos — podem avançar sem decisão de processo.</p>
     <div class="bklog">
 
       <div class="bk tool">
-        <div class="bkh"><span class="bkn">S1</span><span class="bkt">Promoção da Central UTI pra produção</span></div>
-        <p class="bkd">Hoje em <code>central-uti-stg.seazone.properties</code>. Com o primeiro caso real (Sônia) em andamento, não dá pra operar em staging indefinidamente. <b>Pedido:</b> plano de corte (feature flags, dados, DNS <code>central-uti.seazone.properties</code>).</p>
+        <div class="bkh"><span class="bkn">S1</span><span class="bkt">Fila "aguardando vaga" com visibilidade própria no Kanban</span></div>
+        <p class="bkd">Regra: "no máximo 5 em Comunicado + Plano + Resultado; aprovada sem vaga fica aguardando e entra sozinha quando abre vaga". API não expõe campo específico de fila — pode estar fundido com <code>aguardando_vaga</code> dos casos. Confirmar visualização.</p>
         <button class="btn-claude" onclick="sendBacklogToClaude(this)">✦ Enviar ao Claude</button>
       </div>
 
       <div class="bk tool">
-        <div class="bkh"><span class="bkn">S2</span><span class="bkt">Capacidade de 5 franquias em UTI deve ser parametrizável</span></div>
-        <p class="bkd">Hoje é regra fixa citada no processo. <b>Sugestão:</b> campo <code>uti_config.max_concurrent</code> editável na tela "Regras e fontes", pra ajustar sem deploy conforme o time da operação cresce (hoje: Isabella sozinha).</p>
+        <div class="bkh"><span class="bkn">S2</span><span class="bkt">Métrica "média manutenções por imóvel vs. rede" exposta no Sapron</span></div>
+        <p class="bkd">Meta D30 do plano Manutenção. Baseline da Central já traz <code>manut_por_imovel</code> e <code>rede_manut_por_imovel</code>, mas Vinicius precisa dessa comparação nativa no próprio Sapron pra conferir no D21 e D30 sem abrir a Central.</p>
         <button class="btn-claude" onclick="sendBacklogToClaude(this)">✦ Enviar ao Claude</button>
       </div>
 
       <div class="bk tool">
-        <div class="bkh"><span class="bkn">S3</span><span class="bkt">Fila "aguardando vaga" com visibilidade</span></div>
-        <p class="bkd">Processo cita: "aprovada sem vaga fica aguardando e entra sozinha quando abre vaga". Precisa coluna/visão própria no Kanban mostrando ordem da fila, data de aprovação e dias esperando. Sem isso, franquias podem estacionar.</p>
+        <div class="bkh"><span class="bkn">S3</span><span class="bkt">Swagger / doc oficial da API de leitura</span></div>
+        <p class="bkd">A API já funciona e é consumível. Falta documentação formal: campos de cada recurso, parâmetros, exemplos, SLA. Hoje a thread do handover tem as chaves — formalizar como API v1.</p>
         <button class="btn-claude" onclick="sendBacklogToClaude(this)">✦ Enviar ao Claude</button>
       </div>
 
       <div class="bk tool">
-        <div class="bkh"><span class="bkn">S4</span><span class="bkt">Monitoring da rodada diária das 11h</span></div>
-        <p class="bkd">Toda a UTI depende dessa rodada do robô. Se falhar silenciosamente, ninguém sabe. <b>Sugestão:</b> job de health check que posta em <code>#uti-franquias</code> "rodada 11h: OK · N cards processados" ou "FALHA + stack trace" todo dia.</p>
+        <div class="bkh"><span class="bkn">S4</span><span class="bkt">Endpoint de escrita (hoje só leitura)</span></div>
+        <p class="bkd">Para automatizar o fechamento de passos vindo de sistemas externos (Suporte CS fecha chamado → fecha passo "anuncio corrigido" na Central). Hoje precisa clique humano. Precisa de <code>POST /api/v1/uti/casos/{id}/passos/{n}/concluir</code> com assinatura por sistema de origem.</p>
         <button class="btn-claude" onclick="sendBacklogToClaude(this)">✦ Enviar ao Claude</button>
       </div>
 
       <div class="bk tool">
-        <div class="bkh"><span class="bkn">S5</span><span class="bkt">Marcação automática da praça na Captação (franquia única da região)</span></div>
-        <p class="bkd">Seção 4: "franquia única da região abre prospecção". Hoje depende de Isabella avisar Vivianny ou David. <b>Sugestão:</b> Central detecta franquia única pelo cadastro (UF + município) e aciona Pipedrive automaticamente ao mover pra Comunicado.</p>
-        <button class="btn-claude" onclick="sendBacklogToClaude(this)">✦ Enviar ao Claude</button>
-      </div>
-
-      <div class="bk tool">
-        <div class="bkh"><span class="bkn">S6</span><span class="bkt">Volta do status dos chamados de Anúncios (Suporte CS Franquias)</span></div>
-        <p class="bkd">Plano Anúncios D7: "Renato publica as correções e conclui os chamados". Se Suporte CS Franquias fecha o chamado, Central deveria marcar o passo automaticamente. Hoje depende da Larissa avisar. Candidato a webhook.</p>
-        <button class="btn-claude" onclick="sendBacklogToClaude(this)">✦ Enviar ao Claude</button>
-      </div>
-
-      <div class="bk tool">
-        <div class="bkh"><span class="bkn">S7</span><span class="bkt">Métrica "média de manutenções por imóvel vs. média da rede" exposta no Sapron</span></div>
-        <p class="bkd">Meta D30 do plano Manutenção: "média por imóvel ≤ média da rede". Vini precisa dessa comparação nativa no Sapron pra conferir no D21 e no D30. Sem endpoint explícito, cálculo fica no data lake.</p>
-        <button class="btn-claude" onclick="sendBacklogToClaude(this)">✦ Enviar ao Claude</button>
-      </div>
-
-      <div class="bk tool">
-        <div class="bkh"><span class="bkn">S8</span><span class="bkt">API de leitura estável + documentada da Central</span></div>
-        <p class="bkd">Processo cita "endereço de leitura da Central (casos, eventos, planos, integrações, protocolos) pra rotina pelo Claude; chaves na thread do handover". Formalizar como API v1 pública (swagger, versionamento, SLA de resposta) pra viabilizar rotinas da Isabella e os webhooks dos gaps 01 e 06.</p>
-        <button class="btn-claude" onclick="sendBacklogToClaude(this)">✦ Enviar ao Claude</button>
-      </div>
-
-      <div class="bk tool">
-        <div class="bkh"><span class="bkn">S9</span><span class="bkt">Resumo semanal automático por responsável</span></div>
-        <p class="bkd">Critério de qualidade (seção 8): "Resumo semanal postado toda segunda no #uti-franquias, por responsável". Hoje é tarefa da Isabella. <b>Sugestão:</b> cron segunda 08h gera e posta via bot — ela só revisa.</p>
+        <div class="bkh"><span class="bkn">S5</span><span class="bkt">Mover direto exige justificativa — confirmar campo</span></div>
+        <p class="bkd">Regra: "Mover direto é exceção (⋯) e pede justificativa". API não expõe nenhum campo <code>motivo_movimento</code> nos eventos. Confirmar se existe no backend ou é só UI.</p>
         <button class="btn-claude" onclick="sendBacklogToClaude(this)">✦ Enviar ao Claude</button>
       </div>
 
@@ -530,24 +538,17 @@ h2{font-size:clamp(19px,3.1vw,24px);letter-spacing:-.016em}
 
   <div class="bkgroup">
     <div class="bkhd"><span class="bkdot align"></span>Alinhamento · discutir com dev E com dono do processo</div>
-    <p class="bksub">Gaps que surgem na intersecção — precisam combinar o que a Central/Sapron podem fazer com o que o processo prescreve.</p>
     <div class="bklog">
 
       <div class="bk align">
-        <div class="bkh"><span class="bkn">A1</span><span class="bkt">Tags <code>UTI</code> automáticas em Sapron e Suporte</span></div>
-        <p class="bkd">Processo cita tag <code>uti</code> nos cards de Manutenção e nos chamados de Anúncios ("abre um se não existir" / "um chamado por imóvel com tag UTI"). Hoje depende do dono do plano lembrar de aplicar. <b>Alinhamento:</b> quando a Central move franquia pra Comunicado, dispara aplicação da tag nos sistemas-fonte (precisa webhook ambos os lados).</p>
+        <div class="bkh"><span class="bkn">A1</span><span class="bkt">Tags <code>UTI</code> automáticas em Sapron e Suporte CS Franquias</span></div>
+        <p class="bkd">Processo cita tag <code>uti</code> nos cards de Manutenção e nos chamados de Anúncios. Integração <code>sapron_manutencao</code> aparece como <code>confirmada</code>/<code>concluida</code>, mas não valida se a tag está sendo aplicada. Precisa combinar com Vini e Larissa qual sistema cria/sincroniza a tag.</p>
         <button class="btn-claude" onclick="sendBacklogToClaude(this)">✦ Enviar ao Claude</button>
       </div>
 
       <div class="bk align">
-        <div class="bkh"><span class="bkn">A2</span><span class="bkt">UTI de Imóveis dá prioridade aos imóveis críticos da franquia em UTI</span></div>
-        <p class="bkd">Plano Avaliações: "imóveis críticos entram na frente da fila da UTI de Imóveis". Processo prescreve, mas depende das duas UTIs conversarem. <b>Alinhamento:</b> quando franquia entra em plano Avaliações, Central envia lista de códigos pra UTI de Imóveis priorizar. Precisa combinar formato com o dev da UTI de Imóveis.</p>
-        <button class="btn-claude" onclick="sendBacklogToClaude(this)">✦ Enviar ao Claude</button>
-      </div>
-
-      <div class="bk align">
-        <div class="bkh"><span class="bkn">A3</span><span class="bkt">Reset do ciclo após "Encerrado sem UTI"</span></div>
-        <p class="bkd">Processo diz que se o alerta volta em 30 dias após "Encerrado sem UTI", vai direto para Aguardando aprovação. Mas depois dos 30 dias? Robô zera o contador e trata como entrada nova? Decisão de processo + regra na ferramenta. Alinhamento Carol × dev.</p>
+        <div class="bkh"><span class="bkn">A2</span><span class="bkt">Retirada do Stop pós-alta: handshake de ida e volta</span></div>
+        <p class="bkd">Entrada: integração <code>stop_crescimento / existente</code> confirmada no caso 9. Saída: nenhum caso em Alta ainda — não dá pra validar se o fluxo de retirada está pronto. Vivianny e dev do Stop precisam alinhar o handshake antes do primeiro caso chegar na Alta.</p>
         <button class="btn-claude" onclick="sendBacklogToClaude(this)">✦ Enviar ao Claude</button>
       </div>
 
@@ -556,90 +557,66 @@ h2{font-size:clamp(19px,3.1vw,24px);letter-spacing:-.016em}
 
   <div class="bkgroup">
     <div class="bkhd"><span class="bkdot proc"></span>Processo · para próxima retro (não é do dev)</div>
-    <p class="bksub">Decisões humanas pendentes. Compartilhado com o dev só como contexto — enquanto não fecham, alguns gaps da seção 01 ficam parciais.</p>
+    <p class="bksub">Decisões humanas pendentes no v1.0. Dev recebe só como contexto.</p>
     <div class="bklog">
 
       <div class="bk proc">
         <div class="bkh"><span class="bkn">P1</span><span class="bkt">Divisão Vivianny × Gestor Regional nos check-ins</span></div>
-        <p class="bkd">Ponto 2 da seção 9: "Confirmar a regra de divisão entre os dois (por exemplo: gestor regional quando há visita na semana, Vivianny nas demais)". Sem regra, risco de dupla responsabilidade ou nenhuma.</p>
+        <p class="bkd">Ponto 2 da seção 9: "Confirmar a regra de divisão (por exemplo: gestor regional quando há visita na semana, Vivianny nas demais)". Sem regra, risco de dupla responsabilidade ou nenhuma.</p>
         <button class="btn-claude" onclick="sendBacklogToClaude(this)">✦ Enviar ao Claude</button>
       </div>
 
       <div class="bk proc">
         <div class="bkh"><span class="bkn">P2</span><span class="bkt">Modelo de treinamento das áreas</span></div>
-        <p class="bkd">Ponto 1 da seção 9: treinar cada área em meia hora OU publicar na KB e treinar todos de uma vez. Decisão pendente — afeta velocidade de rollout.</p>
+        <p class="bkd">Ponto 1 da seção 9: treinar cada área em meia hora OU publicar na KB. Decisão pendente — afeta velocidade de rollout e qual conteúdo oficial usar (ver gap 04 sobre divergências).</p>
         <button class="btn-claude" onclick="sendBacklogToClaude(this)">✦ Enviar ao Claude</button>
       </div>
 
       <div class="bk proc">
         <div class="bkh"><span class="bkn">P3</span><span class="bkt">Integração Hub Consultoria — confirmar com Carol</span></div>
-        <p class="bkd">Ponto 3 da seção 9: "Confirmar com a Carol se a integração está prevista". Enquanto não houver decisão, gap 01 vai operar no modo paliativo (Isabella avisando por Slack).</p>
+        <p class="bkd">Ponto 3 da seção 9: "Confirmar com a Carol se a integração está prevista". A integração <b>já existe parcial</b> (gap 01), mas o dispatch automático dos passos ainda não. Decisão: investir no fluxo completo ou manter paliativo.</p>
         <button class="btn-claude" onclick="sendBacklogToClaude(this)">✦ Enviar ao Claude</button>
       </div>
 
       <div class="bk proc">
-        <div class="bkh"><span class="bkn">P4</span><span class="bkt">Cópia dos e-mails: Rayanne e David</span></div>
-        <p class="bkd">Ponto 4 da seção 9: "pedido enviado à Carol". Esperando resposta. Mudança trivial no template da ferramenta, mas depende do OK.</p>
+        <div class="bkh"><span class="bkn">P4</span><span class="bkt">Critério fechado de "caso grave"</span></div>
+        <p class="bkd">Processo cita "stop total por qualidade" como único exemplo que vai direto pra Aguardando aprovação. Outros casos graves? (jurídico, fraude, multa pesada). Lista fechada evita decisão caso a caso.</p>
         <button class="btn-claude" onclick="sendBacklogToClaude(this)">✦ Enviar ao Claude</button>
       </div>
 
       <div class="bk proc">
-        <div class="bkh"><span class="bkn">P5</span><span class="bkt">Critério fechado de "caso grave"</span></div>
-        <p class="bkd">Processo cita "stop total por qualidade" como único exemplo que vai direto pra Aguardando aprovação. Outros casos graves? (ex.: ocorrência jurídica, multa pesada, fraude). Lista fechada evita decisão caso a caso.</p>
+        <div class="bkh"><span class="bkn">P5</span><span class="bkt">SLA do interino "até Camila assumir a Consultoria Regional"</span></div>
+        <p class="bkd">Vivianny antecipa visita até Camila terminar o treinamento. Até quando é "até lá"? API já aponta Camila como dona de 4 protocolos — divergência com o doc.</p>
         <button class="btn-claude" onclick="sendBacklogToClaude(this)">✦ Enviar ao Claude</button>
       </div>
 
       <div class="bk proc">
-        <div class="bkh"><span class="bkn">P6</span><span class="bkt">SLA do interino "até Camila assumir a Consultoria Regional"</span></div>
-        <p class="bkd">Vivianny antecipa visita de Consultoria até Camila terminar o treinamento. Até quando é "até lá"? Risco de ficar meses no interino e Vivianny acumular com os check-ins semanais da UTI.</p>
+        <div class="bkh"><span class="bkn">P6</span><span class="bkt">Base da capacidade de 5 franquias simultâneas</span></div>
+        <p class="bkd">Por quê 5? Qual a base empírica? Hoje tem 14 em Pré-UTI + 1 em Decisão + 4 em Execução = 19 ativas, 5 é o teto da UTI oficial. Validar com Vivianny e Carol.</p>
         <button class="btn-claude" onclick="sendBacklogToClaude(this)">✦ Enviar ao Claude</button>
       </div>
 
       <div class="bk proc">
-        <div class="bkh"><span class="bkn">P7</span><span class="bkt">Base da capacidade de 5 franquias simultâneas</span></div>
-        <p class="bkd">Por quê 5? Qual a base empírica? Com 100+ franquias ativas e critérios de entrada rigorosos, 5 pode ser bottleneck. Validar com Vivianny e Carol.</p>
+        <div class="bkh"><span class="bkn">P7</span><span class="bkt">Risco de franquia entrar sem call de alinhamento</span></div>
+        <p class="bkd">Seção 4: "não existe aceite do franqueado: o plano começa com ou sem a call". Risco: franquia contestar que não foi avisada / não concordou com as metas. Rito claro pra defender a Seazone.</p>
         <button class="btn-claude" onclick="sendBacklogToClaude(this)">✦ Enviar ao Claude</button>
       </div>
 
       <div class="bk proc">
-        <div class="bkh"><span class="bkn">P8</span><span class="bkt">Risco de franquia entrar sem call de alinhamento</span></div>
-        <p class="bkd">Seção 4: "não existe aceite do franqueado: o plano começa com ou sem a call". Risco: franquia contestar que não foi avisada / não concordou com as metas. Rito claro pra defender a Seazone (ex.: e-mail como prova formal).</p>
+        <div class="bkh"><span class="bkn">P8</span><span class="bkt">Critério de entrada e saída da whitelist "só alerta"</span></div>
+        <p class="bkd">Hoje Rodrigo Ruas está na lista (por quê? até quando? quem decide tirar?). Dependência direta do gap 05.</p>
         <button class="btn-claude" onclick="sendBacklogToClaude(this)">✦ Enviar ao Claude</button>
       </div>
 
       <div class="bk proc">
-        <div class="bkh"><span class="bkn">P9</span><span class="bkt">Critério de entrada e saída da whitelist "só alerta"</span></div>
-        <p class="bkd">Hoje Rodrigo Ruas está na lista. Por que entrou? Até quando fica? Quem decide tirar? Sem critério, a whitelist vira o cemitério dos casos que ninguém quer tratar. Dependência direta do gap 07.</p>
+        <div class="bkh"><span class="bkn">P9</span><span class="bkt">Quem lidera a call 24h de gravíssima nova (backup Vivianny)</span></div>
+        <p class="bkd">Plano Ocorrências: "Gravíssima nova: call com o franqueado em 24h". Se Vivianny está indisponível, backup é o gestor regional? Isabella? Risco de descumprir SLA interno.</p>
         <button class="btn-claude" onclick="sendBacklogToClaude(this)">✦ Enviar ao Claude</button>
       </div>
 
       <div class="bk proc">
-        <div class="bkh"><span class="bkn">P10</span><span class="bkt">Quem lidera a call 24h de gravíssima nova (backup Vivianny)</span></div>
-        <p class="bkd">Plano Ocorrências: "Gravíssima nova: call com o franqueado em 24h". Se Vivianny está indisponível (férias, call com Carol)? Backup é o gestor regional? É Isabella? Risco de descumprir SLA interno.</p>
-        <button class="btn-claude" onclick="sendBacklogToClaude(this)">✦ Enviar ao Claude</button>
-      </div>
-
-      <div class="bk proc">
-        <div class="bkh"><span class="bkn">P11</span><span class="bkt">Rito de contestação das metas pela franquia</span></div>
-        <p class="bkd">Metas duras (0 gravíssimas, carteira crítica cai pela metade, acordo cumprido). Franquia pode contestar? Em que momento? Com quem? Sem rito, contestação vira ruído no Slack.</p>
-        <button class="btn-claude" onclick="sendBacklogToClaude(this)">✦ Enviar ao Claude</button>
-      </div>
-
-      <div class="bk proc">
-        <div class="bkh"><span class="bkn">P12</span><span class="bkt">Quem é "Diretoria" nos escalonamentos</span></div>
-        <p class="bkd">Processo cita "Diretoria" em vários "Se atrasar": Carol (Diretora Franquias)? Iara (Diretoria de Operações)? Precisa nome fechado por tipo de escalada pra evitar que "escalonado pra Diretoria" vire ninguém.</p>
-        <button class="btn-claude" onclick="sendBacklogToClaude(this)">✦ Enviar ao Claude</button>
-      </div>
-
-      <div class="bk proc">
-        <div class="bkh"><span class="bkn">P13</span><span class="bkt">Template / qualidade do ✎ contato</span></div>
-        <p class="bkd">Contato obrigatório a cada 7 dias, mas sem padrão. Isabella revisa qualidade? "✎ falei com a franquia" conta como contato? Sem padrão mínimo, cards saem do laranja sem conversa real.</p>
-        <button class="btn-claude" onclick="sendBacklogToClaude(this)">✦ Enviar ao Claude</button>
-      </div>
-
-      <div class="bk proc">
-        <div class="bkh"><span class="bkn">P14</span><span class="bkt">SLA máximo da fila "aguardando vaga"</span></div>
-        <p class="bkd">Franquia aprovada sem vaga fica aguardando. Quantos dias no máximo? Se a vaga demora 60 dias, o diagnóstico ainda é válido? Volta pra Pré-UTI? Vira "Encerrado sem UTI"?</p>
+        <div class="bkh"><span class="bkn">P10</span><span class="bkt">Quem é "Diretoria" nos escalonamentos</span></div>
+        <p class="bkd">Processo cita "Diretoria" em vários "Se atrasar": Carol (Diretora Franquias)? Iara (Diretoria Operações)? API aponta "Diretoria / COO" no passo Decisão. Nomes fechados por tipo de escalada evitam que "escalonado pra Diretoria" vire ninguém.</p>
         <button class="btn-claude" onclick="sendBacklogToClaude(this)">✦ Enviar ao Claude</button>
       </div>
 
@@ -647,12 +624,12 @@ h2{font-size:clamp(19px,3.1vw,24px);letter-spacing:-.016em}
   </div>
 </section>
 
-<p class="foot">v1.0 · 20/10/2026 · <b>Ray</b> (BackOffice Franquias) · complemento técnico ao Processo UTI de Franquias v1.0 de Isabella Bino (19/10/2026). · Análise em 3 planos (Ferramenta · Processo · Alinhamento) + plano enxuto pro David Soares (coord. Administrativo/Financeiro Franquias).</p>
+<p class="foot">v2.0 · 20/10/2026 · <b>Ray</b> (BackOffice Franquias) · análise refeita após bate-pronta contra API <code>uti_leitura</code>. Correção honesta da v1 (que estimou gaps que já estavam prontos). Entregue pro David Soares (coord. Admin/Financeiro Franquias).</p>
 
 </div>
 
 <script>
-const KEY='uti_check_v1';
+const KEY='uti_check_v2';
 const state=JSON.parse(localStorage.getItem(KEY)||'{}');
 
 function save(){localStorage.setItem(KEY,JSON.stringify(state));updateProg();}
@@ -678,11 +655,10 @@ function resetAll(){
   updateProg();
 }
 
-/* ========= Envio ao Claude ========= */
 const CLAUDE_URL='https://claude.ai/new?q=';
 const REPO_URL='https://github.com/raayeoliveira/check-central-uti-franquias';
-const PROCESSO='Processo UTI de Franquias v1.0 (19/10/2026) — autoria Isabella Bino (BackOffice Franquias), dona das etapas Vivianny Aguilera (Gerente de Relacionamento), dona das regras Carolina Espindola (Diretora de Franquias)';
-const FERRAMENTA='Central da UTI (central-uti-stg.seazone.properties) + integrações com Sapron, Hub Consultoria Regional, Stop de Crescimento, ScorePulse, Suporte CS Franquias';
+const PROCESSO='Processo UTI de Franquias v1.0 (19/10/2026) — autoria Isabella Bino, dona das etapas Vivianny Aguilera, dona das regras Carolina Espindola';
+const FERRAMENTA='Central da UTI (central-uti-stg.seazone.properties) + API uti_leitura em rksgmplciyyslegcadvw.supabase.co + integrações com Sapron, Hub Consultoria Regional, Stop de Crescimento, ScorePulse, Suporte CS Franquias';
 
 function buildGapPrompt(el){
   const id=el.dataset.id;
@@ -696,46 +672,24 @@ function buildGapPrompt(el){
     return `- **${k}:** ${v}`;
   }).join('\n');
   const criterios=[...el.querySelectorAll('.todo .item label')].map(l=>`- [ ] ${l.textContent.trim()}`).join('\n');
-
-  const onlyProc=origins.length===1 && (origins[0]==='Processo');
-  const onlyTool=origins.length===1 && (origins[0]==='Ferramenta');
-
+  const onlyProc=origins.length===1 && origins[0]==='Processo';
+  const onlyTool=origins.length===1 && origins[0]==='Ferramenta';
   let header, closing;
   if(onlyProc){
-    header=`Você é analista de processos da Seazone (BackOffice Franquias). O item abaixo vem do check-list oficial da UTI de Franquias e é uma decisão de PROCESSO — não de código. Vai para a próxima retro.`;
-    closing=`### Peço um rascunho pra retro:\n1. Pergunta central (uma frase).\n2. Opções (2 ou 3) com prós/contras curtos e impacto em quem executa.\n3. Recomendação sua, com justificativa em uma linha.\n4. Dependências: outras decisões, dados ou levantamentos necessários.`;
+    header=`Você é analista de processos da Seazone (BackOffice Franquias). O item abaixo é decisão de PROCESSO — não código.`;
+    closing=`### Peço rascunho pra retro:\n1. Pergunta central (uma frase).\n2. Opções (2-3) com prós/contras.\n3. Recomendação com justificativa.\n4. Dependências.`;
   } else if(onlyTool){
-    header=`Você é dev da Central da UTI (${FERRAMENTA}). Preciso implementar o gap abaixo, extraído do check-list oficial da Ray (BackOffice Franquias).`;
-    closing=`### Peço:\n1. Proponha o desenho da mudança (models, serializers, endpoints, migrations, jobs) e cite arquivos-alvo prováveis.\n2. Liste riscos e impactos em endpoints existentes.\n3. Escreva o código pronto pra PR, com testes cobrindo cada critério de aceite.`;
+    header=`Você é dev da Central da UTI (${FERRAMENTA}). Preciso implementar o gap abaixo (validado pela API uti_leitura em 20/10/2026).`;
+    closing=`### Peço:\n1. Desenho da mudança (models, endpoints, migrations) + arquivos-alvo.\n2. Riscos e impactos.\n3. Código pronto pra PR, com testes cobrindo cada critério.`;
   } else {
-    header=`Você é dev da Central da UTI (${FERRAMENTA}). O gap abaixo é de ALINHAMENTO entre o processo e a ferramenta — o processo prescreve uma coisa, a ferramenta faz outra (ou nem faz).`;
-    closing=`### Peço:\n1. Confirme sua leitura: o que o processo prescreve × o que a ferramenta faz hoje × qual o gap entre os dois.\n2. Proponha o desenho da integração (quem chama quem, payloads, idempotência, retry).\n3. Liste o que precisa de decisão do BackOffice ou do dono do sistema-fonte antes de codar.\n4. Escreva o código pronto pra PR cobrindo cada critério de aceite.`;
+    header=`Você é dev da Central da UTI (${FERRAMENTA}). Gap de ALINHAMENTO: processo e ferramenta existem mas não conversam (validado pela API uti_leitura em 20/10/2026).`;
+    closing=`### Peço:\n1. Confirme sua leitura: processo × ferramenta × gap.\n2. Desenho da integração (payloads, idempotência, retry).\n3. O que precisa decisão do BackOffice ou do dono do sistema-fonte antes de codar.\n4. Código pronto pra PR cobrindo cada critério.`;
   }
-
-  return `${header}
-
-## Gap ${id} · ${title}
-**Prioridade:** ${prio}
-**Origem:** ${originStr}
-
-### Contexto
-${rows}
-
-### Critério de aceite
-${criterios}
-
-### Referências
-- Check-list completo: ${REPO_URL}
-- ${PROCESSO}
-- Canvas Central da UTI (regras de entrada): Central da UTI (Carol)
-- Canal operacional: #uti-franquias
-
-${closing}`;
+  return `${header}\n\n## Gap ${id} · ${title}\n**Prioridade:** ${prio}\n**Origem:** ${originStr}\n\n### Contexto\n${rows}\n\n### Critério de aceite\n${criterios}\n\n### Referências\n- Check-list completo: ${REPO_URL}\n- ${PROCESSO}\n- API: GET https://rksgmplciyyslegcadvw.supabase.co/rest/v1/rpc/uti_leitura (chaves no handover)\n- Canal operacional: #uti-franquias\n\n${closing}`;
 }
 
 function sendGapToClaude(btn){
-  const el=btn.closest('.gp');
-  const prompt=buildGapPrompt(el);
+  const prompt=buildGapPrompt(btn.closest('.gp'));
   window.open(CLAUDE_URL+encodeURIComponent(prompt),'_blank','noopener');
 }
 
@@ -747,66 +701,14 @@ function sendBacklogToClaude(btn){
   const isTool=el.classList.contains('tool')||el.classList.contains('sys');
   const isProc=el.classList.contains('proc')||el.classList.contains('pro');
   const isAlign=el.classList.contains('align');
-
   let prompt;
   if(isTool){
-    prompt=`Você é dev da Central da UTI (${FERRAMENTA}). Este item vem do backlog complementar do check-list oficial (Ray · BackOffice Franquias) — ainda não tem critério de aceite fechado, precisa passar por um desenho técnico antes.
-
-## Backlog ${id} · ${title}
-**Origem:** Ferramenta (sistema não implementa hoje)
-
-### Achado
-${desc}
-
-### Referências
-- Check-list completo: ${REPO_URL}
-- ${PROCESSO}
-
-### Peço:
-1. Proponha o desenho técnico (models, endpoints, migrations, jobs).
-2. Levante riscos e impactos.
-3. Escreva um rascunho de critério de aceite (3–5 itens verificáveis) pra eu adicionar de volta no check-list.
-4. Só depois, se fizer sentido, comece o código.`;
+    prompt=`Você é dev da Central da UTI (${FERRAMENTA}). Backlog complementar do check-list v2 (Ray · BackOffice Franquias) — sem critério de aceite ainda.\n\n## Backlog ${id} · ${title}\n**Origem:** Ferramenta\n\n### Achado\n${desc}\n\n### Referências\n- Check-list: ${REPO_URL}\n- ${PROCESSO}\n- API: uti_leitura\n\n### Peço:\n1. Desenho técnico (models, endpoints, migrations, jobs).\n2. Riscos e impactos.\n3. Rascunho de critério de aceite (3-5 itens verificáveis) pra eu adicionar no check-list.\n4. Só depois, código.`;
   } else if(isProc){
-    prompt=`Você é analista de processos da Seazone (BackOffice Franquias). Este item vem do backlog do check-list oficial da UTI de Franquias e é uma decisão de PROCESSO — não de código. Vai para a próxima retro.
-
-## Decisão ${id} · ${title}
-**Origem:** Processo (regra em aberto no v1.0)
-
-### Achado
-${desc}
-
-### Referências
-- Check-list completo: ${REPO_URL}
-- ${PROCESSO}
-- Time da retro: Carol (dona das regras), Vivianny (dona das etapas), Isabella (operadora da Central)
-
-### Peço um rascunho pra levar à retro:
-1. Pergunta central que a retro precisa responder (uma frase).
-2. Opções (2 ou 3), com prós/contras curtos e impacto em quem executa.
-3. Recomendação sua, com justificativa em uma linha.
-4. Dependências: outras decisões, dados ou levantamentos necessários.
-5. Se a decisão exigir mudança na Central depois, indique o gap técnico que seria criado.`;
-  } else if(isAlign){
-    prompt=`Você é dev da Central da UTI (${FERRAMENTA}) + analista de processos. Este item é um gap de ALINHAMENTO: processo e ferramenta existem, mas não conversam.
-
-## Alinhamento ${id} · ${title}
-**Origem:** Processo × Ferramenta (gap na intersecção)
-
-### Achado
-${desc}
-
-### Referências
-- Check-list completo: ${REPO_URL}
-- ${PROCESSO}
-
-### Peço:
-1. Separe o que é problema da ferramenta × o que é problema do processo × o que precisa dos dois.
-2. Diga quem precisa mudar primeiro (processo ou ferramenta) pra desbloquear o outro.
-3. Proponha o desenho da integração (payloads, idempotência, cronograma).
-4. Rascunhe critérios de aceite pra eu adicionar no check-list.`;
+    prompt=`Você é analista de processos da Seazone (BackOffice Franquias). Decisão de PROCESSO do backlog do check-list v2.\n\n## Decisão ${id} · ${title}\n**Origem:** Processo (em aberto no v1.0)\n\n### Achado\n${desc}\n\n### Referências\n- Check-list: ${REPO_URL}\n- ${PROCESSO}\n- Time da retro: Carol (regras), Vivianny (etapas), Isabella (operação)\n\n### Peço rascunho pra retro:\n1. Pergunta central (uma frase).\n2. Opções (2-3) com prós/contras e impacto em quem executa.\n3. Recomendação com justificativa.\n4. Dependências.\n5. Se exigir mudança na Central, aponte o gap técnico que seria criado.`;
+  } else {
+    prompt=`Você é dev da Central da UTI (${FERRAMENTA}) + analista de processos. Gap de ALINHAMENTO: processo e ferramenta existem mas não conversam.\n\n## Alinhamento ${id} · ${title}\n**Origem:** Processo × Ferramenta\n\n### Achado\n${desc}\n\n### Referências\n- Check-list: ${REPO_URL}\n- ${PROCESSO}\n- API: uti_leitura\n\n### Peço:\n1. Separe o que é ferramenta × processo × ambos.\n2. Quem muda primeiro pra desbloquear o outro.\n3. Desenho da integração.\n4. Rascunhe critérios de aceite.`;
   }
-
   window.open(CLAUDE_URL+encodeURIComponent(prompt),'_blank','noopener');
 }
 
@@ -826,30 +728,12 @@ function sendAllToClaude(){
     else porOrigem.Processo.push(bloco);
   });
   const sec=Object.entries(porOrigem).filter(([_,arr])=>arr.length).map(([k,arr])=>`## ${k}\n\n${arr.join('\n\n')}`).join('\n\n');
-  const prompt=`Você é dev da Central da UTI (${FERRAMENTA}). Segue o backlog de ${pendentes.length} gap(s) pendente(s) do check-list oficial (Ray · BackOffice Franquias), agrupados por origem.
-
-Preciso que você:
-1. Priorize por dependência técnica (o que precisa vir antes).
-2. Para cada gap, proponha o desenho (models, endpoints, migrations) e cite arquivos-alvo prováveis.
-3. Liste itens que dependem de decisão do BackOffice antes de codar.
-4. Depois, comece pelo primeiro em código pronto pra PR, com testes cobrindo cada critério.
-
-${sec}
-
-## Referências
-- Check-list completo: ${REPO_URL}
-- ${PROCESSO}`;
+  const prompt=`Você é dev da Central da UTI (${FERRAMENTA}). Backlog de ${pendentes.length} gap(s) pendente(s) do check-list v2 (Ray · BackOffice Franquias), agrupados por origem.\n\n1. Priorize por dependência técnica.\n2. Para cada gap: desenho + arquivos-alvo.\n3. Liste itens que dependem de decisão do BackOffice.\n4. Comece pelo primeiro em código pronto pra PR, com testes.\n\n${sec}\n\n## Referências\n- Check-list: ${REPO_URL}\n- ${PROCESSO}\n- API: uti_leitura`;
   window.open(CLAUDE_URL+encodeURIComponent(prompt),'_blank','noopener');
 }
 
-document.querySelectorAll('.gp').forEach(el=>{
-  const id=el.dataset.id;
-  if(state['g'+id]) el.dataset.done='1';
-});
-document.querySelectorAll('input[type=checkbox]').forEach(i=>{
-  if(state[i.id]) i.checked=true;
-  i.addEventListener('change',()=>{state[i.id]=i.checked;save();});
-});
+document.querySelectorAll('.gp').forEach(el=>{const id=el.dataset.id;if(state['g'+id]) el.dataset.done='1';});
+document.querySelectorAll('input[type=checkbox]').forEach(i=>{if(state[i.id]) i.checked=true;i.addEventListener('change',()=>{state[i.id]=i.checked;save();});});
 updateProg();
 </script>
 </html>
